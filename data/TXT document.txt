@@ -1,0 +1,14 @@
+fx(t):=ax+bx*t+cx*t^2+dx*t^3;
+fy(t):=ay+by*t+cy*t^2+dy*t^3;
+fz(t):=az+bz*t+cz*t^2+dz*t^3;
+
+f(t):=[fx(t),fy(t),fz(t)];
+
+Df:[ diff(fx(t),t), diff(fy(t),t), diff(fz(t),t) ]; 
+DDf:[ diff(fx(t),t,2), diff(fy(t),t,2), diff(fz(t),t,2) ]; 
+
+load(vect);
+
+r:((Df~DDf).(Df~DDf))/(Df.Df)^3;
+
+
