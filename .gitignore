@@ -10,3 +10,11 @@
 /src/PythonMlTools/__pycache__
 /src/dist
 /src/PythonMlTools.egg-info
+/doc/latex/boveda/Diagrama0-eps-converted-to.pdf
+/doc/latex/boveda/Diagrama1-eps-converted-to.pdf
+/src/PathFillingPoints/Splines/__pycache__/Cubic3D.cpython-38.pyc
+/src/PathFillingPoints/Splines/__pycache__/Linear3D.cpython-38.pyc
+/src/PathFillingPoints/Splines/__pycache__/LinearSpline3D.cpython-38.pyc
+/src/PathFillingPoints/Splines/__pycache__/__init__.cpython-38.pyc
+/src/PathFillingPoints/__pycache__/__init__.cpython-38.pyc
+/tests/__pycache__/extra.cpython-38.pyc
