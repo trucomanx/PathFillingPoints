@@ -140,7 +140,7 @@ def to_get_cubic3d_weight_list(Points:list,w0=None,alpha=0.01,max_iter=10000,min
             for i in range(N-1):
                 S=d_square_curvature0(W[(i*Nc):(i*Nc+Nc),0])
                 +d_square_curvature1(W[(i*Nc):(i*Nc+Nc),0]);
-                dK[(i*Nc):(i*Nc+Nc),0]=S/2.0;
+                dK[(i*Nc):(i*Nc+Nc),0]=S/(2.0*(N-1));
                 
             dW=dW+beta*dK;
         

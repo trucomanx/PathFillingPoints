@@ -482,6 +482,11 @@ in the boundary conditions in internal point equation's, we obtain
 =\mathbf{0}\in \mathbb{R}^{9(N-2)}
 \end{equation}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{sec-curvature}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cost function in 3D parametric cubic spline}
@@ -532,7 +537,7 @@ Applying the derivative in relation of vector $\mathbf{w}$
 in the cost function $E_{1}(\mathbf{w})$ of Eq. \ref{eq:costfunc1}, 
 we obtain
 
-\begin{equation}\label{eq:E1}
+\begin{equation}\label{eq:DE1}
 \frac{\partial E_{1}(\mathbf{w})}{\partial \mathbf{w}}
 =
 2
@@ -555,16 +560,136 @@ we obtain
 \right)
 \end{equation}
 
-\section{Parameter calculus of 3D parametric cubic spline}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cost function of curvature the cubic spline in the points $\mathbf{r}^{(n)}$}
+
+Following the explained in the Section \ref{sec:curvaturemain},
+the equation relative to the curvature that should be minimized can be represented in the next equation
+
+\begin{equation}
+E_{2}
+=
+\frac{1}{2(N-1)}
+\sum\limits_{n=0}^{N-2}
+\left\{
+\mathcal{K}_{(n)}^{2}(n)
++
+\mathcal{K}_{(n)}^{2}(n+1)
+\right\}.
+\end{equation}
+
+Derivating in function of $\mathbf{w}$
+
+\begin{equation}
+\frac{\partial E_{2}}{\partial \mathbf{w}^{(n)}}
+=
+\frac{1}{2(N-1)}
+\left\{
+\frac{
+\partial 
+\mathcal{K}_{(n)}^{2}(n)
+}{\partial \mathbf{w}^{(n)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(n)}^{2}(n+1)
+}{\partial \mathbf{w}^{(n)}}
+\right\}
+\end{equation}
+
+\begin{equation}\label{eq:DE2}
+\frac{\partial E_{2}}{\partial \mathbf{w}}
+=
+\begin{bmatrix}
+\frac{\partial E_{2}}{\partial \mathbf{w}^{(0)}}\\[4pt]
+\frac{\partial E_{2}}{\partial \mathbf{w}^{(1)}}\\[4pt]
+\vdots\\[4pt]
+\frac{\partial E_{2}}{\partial \mathbf{w}^{(N-2)}}
+\end{bmatrix}
+=
+\frac{1}{2(N-1)}
+\begin{bmatrix}
+%
+\frac{
+\partial 
+\mathcal{K}_{(0)}^{2}(0)
+}{\partial \mathbf{w}^{(0)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(0)}^{2}(1)
+}{\partial \mathbf{w}^{(0)}}\\[4pt]
+%
+\frac{
+\partial 
+\mathcal{K}_{(1)}^{2}(1)
+}{\partial \mathbf{w}^{(1)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(1)}^{2}(2)
+}{\partial \mathbf{w}^{(1)}}\\[4pt]
+%
+\vdots\\[4pt]
+\frac{
+\partial 
+\mathcal{K}_{(N-2)}^{2}(N-2)
+}{\partial \mathbf{w}^{(N-2)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(N-2)}^{2}(N-1)
+}{\partial \mathbf{w}^{(N-2)}}\\
+%
+\end{bmatrix}
+.
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Parameter calculus of 3D parametric cubic spline}
 \label{sec:solvecubicspline}
-Using the Eq. \ref{eq:E1} and the gradient descent technique, we obtain
+
+Defining the cost function $E(\mathbf{w})$ as
+
+\begin{equation}
+E(\mathbf{w})=E_{1}(\mathbf{w})+\beta E_{2}(\mathbf{w})
+\end{equation}
+
+Using the gradient descent technique, we obtain
+
 \begin{equation}
 \mathbf{w}_{i+1}
 \leftarrow 
 \mathbf{w}_{i}
 -
 \alpha
+\left.
+\frac{\partial 
+\left\{
+E_{1}(\mathbf{w})+\beta E_{2}(\mathbf{w})
+\right\}
+}{\partial \mathbf{w}}
+\right|_{\mathbf{w}=\mathbf{w}_{i}}.
+\end{equation}
+
+Applying the Eqs. \ref{eq:DE1}, \ref{eq:DE2} we obtain
+
+\begin{equation}
+\mathbf{w}_{i+1}
+\leftarrow 
+\mathbf{w}_{i}
+-
+\alpha
+\left\{
+\left.
 \frac{\partial E_{1}(\mathbf{w})}{\partial \mathbf{w}}
+\right|_{\mathbf{w}=\mathbf{w}_{i}}
++
+\beta
+\left.
+\frac{\partial E_{2}(\mathbf{w})}{\partial \mathbf{w}}
+\right|_{\mathbf{w}=\mathbf{w}_{i}}
+\right\}
 \end{equation}
 
 \begin{equation}
@@ -572,8 +697,9 @@ Using the Eq. \ref{eq:E1} and the gradient descent technique, we obtain
 \leftarrow 
 \mathbf{w}_{i}
 -
-2
 \alpha
+\left\{
+2
 \begin{bmatrix}
 \mathbf{P}\\
 \mathbf{Q}
@@ -584,19 +710,56 @@ Using the Eq. \ref{eq:E1} and the gradient descent technique, we obtain
 \mathbf{P}\\
 \mathbf{Q}
 \end{bmatrix}
-\mathbf{w}
+\mathbf{w}_{i}
 -
 \begin{bmatrix}
 \mathbf{r}\\
 \mathbf{0}
 \end{bmatrix}
 \right)
++
+\frac{\beta}{2(N-1)}
+\begin{bmatrix}
+%
+\frac{
+\partial 
+\mathcal{K}_{(0)}^{2}(0)
+}{\partial \mathbf{w}^{(0)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(0)}^{2}(1)
+}{\partial \mathbf{w}^{(0)}}\\[4pt]
+%
+\frac{
+\partial 
+\mathcal{K}_{(1)}^{2}(1)
+}{\partial \mathbf{w}^{(1)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(1)}^{2}(2)
+}{\partial \mathbf{w}^{(1)}}\\[4pt]
+%
+\vdots\\[4pt]
+\frac{
+\partial 
+\mathcal{K}_{(N-2)}^{2}(N-2)
+}{\partial \mathbf{w}^{(N-2)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(N-2)}^{2}(N-1)
+}{\partial \mathbf{w}^{(N-2)}}\\
+%
+\end{bmatrix}
+\right\}
 \end{equation}
 
-where $\alpha$ is a learning hyper-parameter and 
+where $\alpha$ and $\beta$ are learning hyper-parameters and 
 $\mathbf{w}_{0}$ 
 will be calculated following the calculus of 3D parametric linear spline
 seen in the Section \ref{sec:solvelinearspline}.
-The iteration follow until a maximum number od iteration $i$ or until reach a
+The iteration follow until a maximum number of iteration $i$ or until reach a
 minimum defined error $E_1(\mathbf{w}_{i})$. 
 

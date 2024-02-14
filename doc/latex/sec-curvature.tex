@@ -1,5 +1,5 @@
-\section{Curvature of a 3D parametric function}
-
+\section{Curvature of a 3D parametric cubic spline}
+\label{sec:curvaturemain}
 The curvature $\mathcal{K}_{(n)}(t)$ of a 3D parametric function, 
 $\mathbf{p}^{(n)}(t)\in \mathbb{R}^{3}$ with parameter $t$, 
 can be calculated 
@@ -411,7 +411,7 @@ Solving \cite[pp. 11]{petersen2008matrix} the Eq. \ref{eq:curv2} by parts
 
 We obtain
 
-\small
+\tiny
 \begin{equation}
 \frac{
 \partial 
@@ -649,148 +649,17 @@ and
 \end{split}
 \end{equation}
 
+
 \begin{comment}
-\begin{equation}
-\frac{
-\partial 
-\mathcal{K}^{2}(\mathbf{\bar{w}})
-}
-{
-\partial \mathbf{\bar{w}}
-}
-=
-\frac{
-\left[
-2
-\left\|\mathbf{\bar{c}}\right\|^2
-\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
-+
-2
-\left\|\mathbf{\bar{b}}\right\|^2
-\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
--
-2
-\left(
-\mathbf{\bar{b}}^{T}
-\mathbf{\bar{c}}
-\right)
-\left(
-\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
-+
-\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
-\right)
-\right]
-\left\| \mathbf{\bar{b}} \right\|^{2}
--
-\left(
-\left\|
-\mathbf{\bar{b}} 
-\right\|^{2}
-\left\|
-\mathbf{\bar{c}}
-\right\|^{2}
--
-\left(
-\mathbf{\bar{b}}^{T}
-\mathbf{\bar{c}}
-\right)^{2}
-\right)
-6
-\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
-}
-{\left\| \mathbf{\bar{b}} \right\|^{8}}
-\end{equation}
+Finally
 
 \begin{equation}
 \frac{
 \partial 
-\mathcal{K}^{2}(\mathbf{\bar{w}})
+\mathcal{K}_{(n)}^{2}(n+1)
 }
 {
-\partial \mathbf{\bar{w}}
+\partial \mathbf{w}^{(n)}
 }
-=
-\frac{
-2
-\left\| \mathbf{\bar{b}} \right\|^{2}
-\left\|\mathbf{\bar{c}}\right\|^2
-\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
-+
-2
-\left\| \mathbf{\bar{b}} \right\|^{4}
-\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
--
-2
-\left\| \mathbf{\bar{b}} \right\|^{2}
-\left(
-\mathbf{\bar{b}}^{T}
-\mathbf{\bar{c}}
-\right)
-\left(
-\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
-+
-\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
-\right)
--
-6
-\left\|
-\mathbf{\bar{b}} 
-\right\|^{2}
-\left\|
-\mathbf{\bar{c}}
-\right\|^{2}
-\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
-+
-6
-\left(
-\mathbf{\bar{b}}^{T}
-\mathbf{\bar{c}}
-\right)^{2}
-\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
-}
-{\left\| \mathbf{\bar{b}} \right\|^{8}}
 \end{equation}
-
-\begin{equation}
-\frac{
-\partial 
-\mathcal{K}^{2}(\mathbf{\bar{w}})
-}
-{
-\partial \mathbf{\bar{w}}
-}
-=
-\frac{
--4
-\left\| \mathbf{\bar{b}} \right\|^{2}
-\left\|\mathbf{\bar{c}}\right\|^2
-\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
-+
-2
-\left\| \mathbf{\bar{b}} \right\|^{4}
-\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
--
-2
-\left\| \mathbf{\bar{b}} \right\|^{2}
-\left(
-\mathbf{\bar{b}}^{T}
-\mathbf{\bar{c}}
-\right)
-\left(
-\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
-+
-\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
-\right)
-+
-6
-\left(
-\mathbf{\bar{b}}^{T}
-\mathbf{\bar{c}}
-\right)^{2}
-\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
-}
-{\left\| \mathbf{\bar{b}} \right\|^{8}}
-\end{equation}
-
 \end{comment}
-
