@@ -2,94 +2,17 @@
 
 import numpy as np
 import math
-
-def to_get_weight_list(Points:list,w0=None,alpha=0.01,max_iter=10000,min_mse=1e-5):
-    N = len(Points);
-    
-    Q00=np.array([  [1.0,1.0,1.0,1.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 1.0,1.0,1.0,1.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 1.0,1.0,1.0,1.0]]);
-    
-    Q01=np.array([  [1.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 1.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 1.0,0.0,0.0,0.0]]);
-    
-    Q10=np.array([  [0.0,1.0,2.0,3.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,1.0,2.0,3.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,1.0,2.0,3.0]]);
-    
-    Q11=np.array([  [0.0,1.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0]]);
-    
-    Q20=np.array([  [0.0,0.0,2.0,6.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,0.0,2.0,6.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,2.0,6.0]]);
-    
-    Q21=np.array([  [0.0,0.0,2.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,0.0,2.0,0.0, 0.0,0.0,0.0,0.0],
-                    [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,2.0,0.0]]);
-    
-    Nr, Nc = Q00.shape;
-    
-    if w0==None:
-        w0=0.01*np.ones(Nc*(N-1));
-    
-    P = np.zeros((Nr*N,Nc*(N-1)));
-    
-    for l in range(N-1):
-        P[Nr*l:(Nr*l+Nr),Nc*l:(Nc*l+Nc)]=Q01;
-    P[(Nr*(N-1)):(Nr*N),Nc*(N-2):(Nc*(N-1))]=Q00;
-    
-    
-    Q = np.zeros((3*Nr*(N-2),Nc*(N-1)));
-    for l in range(N-2):
-        Q[ Nr*(3*l+0):Nr*(3*l+1), Nc*(l+0):Nc*(l+1) ] = Q00;
-        Q[ Nr*(3*l+0):Nr*(3*l+1), Nc*(l+1):Nc*(l+2) ] =-Q01;
-        
-        Q[ Nr*(3*l+1):Nr*(3*l+2), Nc*(l+0):Nc*(l+1) ] = Q10;
-        Q[ Nr*(3*l+1):Nr*(3*l+2), Nc*(l+1):Nc*(l+2) ] =-Q11;
-        
-        Q[ Nr*(3*l+2):Nr*(3*l+3), Nc*(l+0):Nc*(l+1) ] = Q20;
-        Q[ Nr*(3*l+2):Nr*(3*l+3), Nc*(l+1):Nc*(l+2) ] =-Q21;
-    
-    B=np.concatenate((P,Q), axis=0);
-    
-    c=np.zeros(Nr*N + 3*Nr*(N-2));
-    
-    for n in range(N):
-        c[3*n  ]=Points[n][0];
-        c[3*n+1]=Points[n][1];
-        c[3*n+2]=Points[n][2];
-    
-    # Calculo de w
-    C= c.reshape((-1,1)); 
-    W=w0.reshape((-1,1)); 
-    
-    j=0;
-    E=[np.square(B@W-C).mean()];
-    while j<max_iter and E[-1]>=min_mse:
-        dW=2*B.T@(B@W-C);
-        W=W-alpha*dW;
-        
-        E.append(np.square(B@W-C).mean());
-        
-        j=j+1;
-    
-    return W.reshape((-1,)),E;
+import PathFillingPoints.Splines.Cubic3DSolver as solver
 
 class CubicSpline3D():
-    def __init__(self,P:list):
-        self.N = len(P);
-        self.w, self.MSE = to_get_weight_list(P);
-        '''
-        print("N:")
-        print(self.N)
-        print("w:")
-        print(self.w)
-        print("MSE:")
-        print(self.MSE);
-        '''
+    def __init__(self,Points:list,w0=None,alpha=0.01,max_iter=10000,min_mse=1e-5,beta=0.001):
+        self.N = len(Points);
+        self.w, self.MSE = solver.to_get_cubic3d_weight_list(   Points,
+                                                                w0=w0,
+                                                                alpha=alpha,
+                                                                max_iter=max_iter,
+                                                                min_mse=min_mse,
+                                                                beta=beta);
         
     def eval(self,t):
         n=int(math.floor(t));
@@ -111,7 +34,57 @@ class CubicSpline3D():
         
         return np.array([px,py,pz]);
         
+    def dpoly(self,n,t):
+        
+        nn=n;
+        if(n<0):
+            nn=0;
+        elif(n>=(self.N-1)):
+            nn=self.N-2;
+        
+        Nv=12;
+        
+        dpx = self.w[Nv*nn+1] + self.w[Nv*nn+2 ]*2*(t-nn) + self.w[Nv*nn+3 ]*3*(t-nn)**(2);
+        dpy = self.w[Nv*nn+5] + self.w[Nv*nn+6 ]*2*(t-nn) + self.w[Nv*nn+7 ]*3*(t-nn)**(2);
+        dpz = self.w[Nv*nn+9] + self.w[Nv*nn+10]*2*(t-nn) + self.w[Nv*nn+11]*3*(t-nn)**(2);
+        
+        return np.array([dpx,dpy,dpz]);
+    
+    def ddpoly(self,n,t):
+        
+        nn=n;
+        if(n<0):
+            nn=0;
+        elif(n>=(self.N-1)):
+            nn=self.N-2;
+        
+        Nv=12;
+        
+        ddpx = self.w[Nv*nn+2 ]*2 + self.w[Nv*nn+3 ]*6*(t-nn);
+        ddpy = self.w[Nv*nn+6 ]*2 + self.w[Nv*nn+7 ]*6*(t-nn);
+        ddpz = self.w[Nv*nn+10]*2 + self.w[Nv*nn+11]*6*(t-nn);
+        
+        return np.array([ddpx,ddpy,ddpz]);
+    
+    def cuvature(self,n,t):
+        dp  = self.dpoly(n,t);
+        ddp = self.ddpoly(n,t);
+        
+        k=np.linalg.norm(np.cross(dp,ddp))/np.linalg.norm(dp)**(3);
+        
+        return k;
+    def get_curvatures(self):
+        
+        dat=[];
+        for n in range(self.N-1):
+            dat.append(self.cuvature(n,n));
+            dat.append(self.cuvature(n,n+1));
+        
+        return dat;
+        
     def get_w(self):
         return self.w;
-
+    
+    def get_mse(self):
+        return self.MSE;
     

@@ -18,3 +18,5 @@
 /src/PathFillingPoints/Splines/__pycache__/__init__.cpython-38.pyc
 /src/PathFillingPoints/__pycache__/__init__.cpython-38.pyc
 /tests/__pycache__/extra.cpython-38.pyc
+/src/PathFillingPoints/Splines/__pycache__/Cubic3DSolver.cpython-38.pyc
+/src/PathFillingPoints/Splines/__pycache__/Linear3DSolver.cpython-38.pyc

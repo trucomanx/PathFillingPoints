@@ -1,0 +1,796 @@
+\section{Curvature of a 3D parametric function}
+
+The curvature $\mathcal{K}_{(n)}(t)$ of a 3D parametric function, 
+$\mathbf{p}^{(n)}(t)\in \mathbb{R}^{3}$ with parameter $t$, 
+can be calculated 
+\cite[pp. 21]{toponogov2006differential} 
+using the next equation,
+
+\begin{equation}
+\mathcal{K}_{(n)}(t)
+=
+\frac{\left\|\frac{\partial \mathbf{p}^{(n)}(t)}{\partial t} \times \frac{\partial^2 \mathbf{p}^{(n)}(t)}{\partial t^2} \right\|}
+{\left\|\frac{\partial \mathbf{p}^{(n)}(t)}{\partial t}\right\|^{3}}
+\equiv
+\frac{\left\|{\mathbf{p}^{(n)}}'(t) \times {\mathbf{p}^{(n)}}''(t) \right\|}
+{\left\|{\mathbf{p}^{(n)}}'(t)\right\|^{3}}
+\end{equation}
+
+
+if we calculate the square curvature $\mathcal{K}_{(n)}^{2}(t)$ to the cases when $t\equiv n$ and $t\equiv n+1$,
+then we obtain
+\begin{equation}
+\mathcal{K}_{(n)}^{2}(n)
+=
+\frac{\left\|
+\left( \mathbf{Q}^{(1,1)} \mathbf{w}^{(n)} \right)
+\times 
+\left( \mathbf{Q}^{(2,1)} \mathbf{w}^{(n)} \right)
+\right\|^{2}}
+{\left\| \mathbf{Q}^{(1,1)} \mathbf{w}^{(n)} \right\|^{6}}
+\end{equation}
+
+\begin{equation}
+\mathcal{K}_{(n)}^{2}(n+1)
+=
+\frac{\left\|
+\left( \mathbf{Q}^{(1,0)} \mathbf{w}^{(n)} \right)
+\times 
+\left( \mathbf{Q}^{(2,0)} \mathbf{w}^{(n)} \right)
+\right\|^{2}}
+{\left\| \mathbf{Q}^{(1,0)} \mathbf{w}^{(n)} \right\|^{6}}
+\end{equation}
+
+
+or rewritten in a simplified form to minimize the indices
+
+\begin{equation}\label{eq:K2simple}
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+=
+\frac{
+\left\|
+\mathbf{\bar{b}} 
+\times 
+\mathbf{\bar{c}}
+\right\|^{2}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{6}}.
+\end{equation}
+
+
+
+Knowing that $\left\|
+\mathbf{\bar{b}} 
+\times 
+\mathbf{\bar{c}}
+\right\|^{2}$ 
+represents the square area of parallelepid form by the vectors 
+$\mathbf{\bar{b}}$ and $\mathbf{\bar{c}}$,
+then
+$\left\|
+\mathbf{\bar{b}} 
+\times 
+\mathbf{\bar{c}}
+\right\|^{2}
+=
+\left(
+\left\|
+\mathbf{\bar{b}}
+\right\|
+sin(\theta) 
+\left\|
+\mathbf{\bar{c}}
+\right\|
+\right)^{2}
+=
+\left\|
+\mathbf{\bar{b}}
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+-
+\left\|
+\mathbf{\bar{b}}
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+cos(\theta)^{2}.
+$ 
+Thus, the Eq. \ref{eq:K2simple} can be written as 
+
+\begin{equation}
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+=
+\frac{
+\left\|
+\mathbf{\bar{b}} 
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+-
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{6}}
+\end{equation}
+
+derivating in function of vector $\mathbf{w}$
+
+\begin{equation}
+\frac{
+\partial 
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+}
+{
+\partial \mathbf{\bar{w}}
+}
+=
+\frac{
+\frac{
+\partial 
+\left(
+\left\|
+\mathbf{\bar{b}} 
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+-
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+\right)
+}
+{\partial \mathbf{\bar{w}}}
+\left\| \mathbf{\bar{b}} \right\|^{6}
+-
+\left(
+\left\|
+\mathbf{\bar{b}} 
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+-
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+\right)
+\frac{
+\partial
+\left\| \mathbf{\bar{b}} \right\|^{6}
+}
+{
+\partial \mathbf{\bar{w}}
+}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{12}}
+\end{equation}
+
+
+
+\begin{equation}\label{eq:curv2}
+\frac{
+\partial 
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+}
+{
+\partial \mathbf{\bar{w}}
+}
+=
+\frac{
+\left(
+\frac{
+\partial 
+\left(
+\left\|\mathbf{\bar{b}}\right\|^2
+\left\|\mathbf{\bar{c}}\right\|^2
+\right)
+}
+{\partial \mathbf{\bar{w}}}
+-
+\frac{
+\partial
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+}
+{\partial \mathbf{\bar{w}}}
+\right)
+\left\| \mathbf{\bar{b}} \right\|^{6}
+-
+\left(
+\left\|
+\mathbf{\bar{b}} 
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+-
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+\right)
+\frac{
+\partial
+\left\| \mathbf{\bar{b}} \right\|^{6}
+}
+{
+\partial \mathbf{\bar{w}}
+}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{12}}
+\end{equation}
+
+Solving \cite[pp. 11]{petersen2008matrix} the Eq. \ref{eq:curv2} by parts
+
+\begin{align}
+\frac{
+\partial 
+\left(
+\left\|\mathbf{\bar{b}}\right\|^2
+\left\|\mathbf{\bar{c}}\right\|^2
+\right)
+}
+{\partial \mathbf{\bar{w}}}
+&=
+\frac{
+\partial 
+\left\|\mathbf{\bar{b}}\right\|^2
+}
+{\partial \mathbf{\bar{w}}}
+\left\|\mathbf{\bar{c}}\right\|^2
++
+\left\|\mathbf{\bar{b}}\right\|^2
+\frac{
+\partial 
+\left\|\mathbf{\bar{c}}\right\|^2
+}
+{\partial \mathbf{\bar{w}}}\\
+~
+&=
+\frac{
+\partial 
+\left(
+\mathbf{\bar{w}}^{T} \mathbf{Q}^{(1)T}
+\mathbf{Q}^{(1)} \mathbf{\bar{w}}
+\right)
+}
+{\partial \mathbf{\bar{w}}}
+\left\|\mathbf{\bar{c}}\right\|^2
++
+\left\|\mathbf{\bar{b}}\right\|^2
+\frac{
+\partial 
+\left(
+\mathbf{\bar{w}}^{T} \mathbf{Q}^{(2)T}
+\mathbf{Q}^{(2)} \mathbf{\bar{w}}
+\right)
+}
+{\partial \mathbf{\bar{w}}}\\
+~
+&=
+2
+\mathbf{Q}^{(1)T} \mathbf{Q}^{(1)} \mathbf{\bar{w}}
+\left\|\mathbf{\bar{c}}\right\|^2
++
+2
+\left\|\mathbf{\bar{b}}\right\|^2
+\mathbf{Q}^{(2)T} \mathbf{Q}^{(2)} \mathbf{\bar{w}}\\
+~
+&=
+2
+\left\|\mathbf{\bar{c}}\right\|^2
+\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
++
+2
+\left\|\mathbf{\bar{b}}\right\|^2
+\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
+\end{align}
+
+\begin{align}
+\frac{
+\partial
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+}
+{\partial \mathbf{\bar{w}}} 
+&=
+2
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\frac{
+\partial
+\left(
+\mathbf{\bar{w}}^{T} \mathbf{Q}^{(1)T}
+\mathbf{Q}^{(2)} \mathbf{\bar{w}}
+\right)
+}
+{\partial \mathbf{\bar{w}}}\\
+~
+&=
+2
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\left(
+\mathbf{Q}^{(1)T}\mathbf{Q}^{(2)}
++
+\mathbf{Q}^{(2)T}\mathbf{Q}^{(1)}
+\right)
+\mathbf{\bar{w}}\\
+~
+&=
+2
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\left(
+\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
++
+\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
+\right)
+\end{align}
+
+
+\begin{align}
+\frac{
+\partial
+\left\| \mathbf{\bar{b}} \right\|^{6}
+}
+{
+\partial \mathbf{\bar{w}}
+}
+&=
+\frac{
+\partial
+\left( \left\| \mathbf{\bar{b}} \right\|^{2} \right)^{3}
+}
+{
+\partial \mathbf{\bar{w}}
+}\\
+~
+&=
+3
+\left( \left\| \mathbf{\bar{b}} \right\|^{2} \right)^{2}
+\frac{
+\partial
+\left\| \mathbf{\bar{b}} \right\|^{2}
+}
+{
+\partial \mathbf{\bar{w}}
+}\\
+~
+&=
+3
+\left\| \mathbf{\bar{b}} \right\|^{4}
+\frac{
+\partial
+\mathbf{\bar{b}}^{T}\mathbf{\bar{b}}
+}
+{
+\partial \mathbf{\bar{w}}
+}\\
+~
+&=
+3
+\left\| \mathbf{\bar{b}} \right\|^{4}
+\frac{
+\partial
+\mathbf{\bar{w}}^{T}\mathbf{Q}^{(1)T}\mathbf{Q}^{(1)}\mathbf{\bar{w}}
+}
+{
+\partial \mathbf{\bar{w}}
+}\\
+~
+&=
+6
+\left\| \mathbf{\bar{b}} \right\|^{4}
+\mathbf{Q}^{(1)T}\mathbf{Q}^{(1)}\mathbf{\bar{w}}\\
+~
+&=
+6
+\left\| \mathbf{\bar{b}} \right\|^{4}
+\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
+\end{align}
+
+We obtain
+
+\small
+\begin{equation}
+\frac{
+\partial 
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+}
+{
+\partial \mathbf{\bar{w}}
+}
+=
+\frac{
+\left[
+2
+\left\|\mathbf{\bar{c}}\right\|^2
+\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
++
+2
+\left\|\mathbf{\bar{b}}\right\|^2
+\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
+-
+2
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\left(
+\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
++
+\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
+\right)
+\right]
+\left\| \mathbf{\bar{b}} \right\|^{6}
+-
+\left(
+\left\|
+\mathbf{\bar{b}} 
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+-
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+\right)
+6
+\left\| \mathbf{\bar{b}} \right\|^{4}
+\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{12}}
+\end{equation}
+\normalsize
+
+\small
+\begin{equation}
+\frac{
+\partial 
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+}
+{
+\partial \mathbf{\bar{w}}
+}
+=
+\frac{
+\left[
+2
+\left\|\mathbf{\bar{c}}\right\|^2
+\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
++
+2
+\left\|\mathbf{\bar{b}}\right\|^2
+\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
+-
+2
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\left(
+\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
++
+\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
+\right)
+\right]
+\left\| \mathbf{\bar{b}} \right\|^{6}
+-
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+6
+\left\| \mathbf{\bar{b}} \right\|^{10}
+\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{12}}
+\end{equation}
+\normalsize
+
+
+
+
+\small
+\begin{equation}
+\frac{
+\partial 
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+}
+{
+\partial \mathbf{\bar{w}}
+}
+=
+\frac{
+2
+\left\|\mathbf{\bar{c}}\right\|^2
+\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
++
+2
+\left\|\mathbf{\bar{b}}\right\|^2
+\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{6}}
+-
+\frac
+{
+2
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\left(
+\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
++
+\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
+\right)
+}
+{\left\| \mathbf{\bar{b}} \right\|^{6}}
+-
+\frac
+{
+6
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{2}}
+\end{equation}
+\normalsize
+
+Thus
+
+
+\begin{equation}
+\begin{split}
+\frac{
+\partial 
+\mathcal{K}_{(n)}^{2}(n+1)
+}
+{
+\partial \mathbf{w}^{(n)}
+}
+& = 
+2
+\frac{
+\left\|{\mathbf{p}^{(n)}}''(n+1)\right\|^2
+\mathbf{Q}^{(1,0)T} {\mathbf{p}^{(n)}}'(n+1)
++
+\left\|{\mathbf{p}^{(n)}}'(n+1)\right\|^2
+\mathbf{Q}^{(2,0)T} {\mathbf{p}^{(n)}}''(n+1)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n+1) \right\|^{6}}\\[10pt]
+& - 
+2
+\frac
+{
+\left(
+{{\mathbf{p}^{(n)}}'(n+1)}^{T}
+{\mathbf{p}^{(n)}}''(n+1)
+\right)
+\left(
+\mathbf{Q}^{(1,0)T}{\mathbf{p}^{(n)}}''(n+1)
++
+\mathbf{Q}^{(2,0)T}{\mathbf{p}^{(n)}}'(n+1)
+\right)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n+1) \right\|^{6}}\\[10pt]
+& - 
+6
+\frac
+{
+\mathcal{K}_{(n)}^{2}(n+1)
+\mathbf{Q}^{(1,0)T}{\mathbf{p}^{(n)}}'(n+1)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n+1) \right\|^{2}}
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+\frac{
+\partial 
+\mathcal{K}_{(n)}^{2}(n)
+}
+{
+\partial \mathbf{w}^{(n)}
+}
+& = 
+2
+\frac{
+\left\|{\mathbf{p}^{(n)}}''(n)\right\|^2
+\mathbf{Q}^{(1,1)T} {\mathbf{p}^{(n)}}'(n)
++
+\left\|{\mathbf{p}^{(n)}}'(n)\right\|^2
+\mathbf{Q}^{(2,1)T} {\mathbf{p}^{(n)}}''(n)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n) \right\|^{6}}\\[10pt]
+& - 
+2
+\frac
+{
+\left(
+{{\mathbf{p}^{(n)}}'(n)}^{T}
+{\mathbf{p}^{(n)}}''(n)
+\right)
+\left(
+\mathbf{Q}^{(1,1)T}{\mathbf{p}^{(n)}}''(n)
++
+\mathbf{Q}^{(2,1)T}{\mathbf{p}^{(n)}}'(n)
+\right)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n) \right\|^{6}}\\[10pt]
+& - 
+6
+\frac
+{
+\mathcal{K}_{(n)}^{2}(n)
+\mathbf{Q}^{(1,1)T}{\mathbf{p}^{(n)}}'(n)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n) \right\|^{2}}
+\end{split}
+\end{equation}
+
+\begin{comment}
+\begin{equation}
+\frac{
+\partial 
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+}
+{
+\partial \mathbf{\bar{w}}
+}
+=
+\frac{
+\left[
+2
+\left\|\mathbf{\bar{c}}\right\|^2
+\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
++
+2
+\left\|\mathbf{\bar{b}}\right\|^2
+\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
+-
+2
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\left(
+\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
++
+\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
+\right)
+\right]
+\left\| \mathbf{\bar{b}} \right\|^{2}
+-
+\left(
+\left\|
+\mathbf{\bar{b}} 
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+-
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+\right)
+6
+\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{8}}
+\end{equation}
+
+\begin{equation}
+\frac{
+\partial 
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+}
+{
+\partial \mathbf{\bar{w}}
+}
+=
+\frac{
+2
+\left\| \mathbf{\bar{b}} \right\|^{2}
+\left\|\mathbf{\bar{c}}\right\|^2
+\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
++
+2
+\left\| \mathbf{\bar{b}} \right\|^{4}
+\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
+-
+2
+\left\| \mathbf{\bar{b}} \right\|^{2}
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\left(
+\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
++
+\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
+\right)
+-
+6
+\left\|
+\mathbf{\bar{b}} 
+\right\|^{2}
+\left\|
+\mathbf{\bar{c}}
+\right\|^{2}
+\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
++
+6
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{8}}
+\end{equation}
+
+\begin{equation}
+\frac{
+\partial 
+\mathcal{K}^{2}(\mathbf{\bar{w}})
+}
+{
+\partial \mathbf{\bar{w}}
+}
+=
+\frac{
+-4
+\left\| \mathbf{\bar{b}} \right\|^{2}
+\left\|\mathbf{\bar{c}}\right\|^2
+\mathbf{Q}^{(1)T} \mathbf{\bar{b}}
++
+2
+\left\| \mathbf{\bar{b}} \right\|^{4}
+\mathbf{Q}^{(2)T} \mathbf{\bar{c}}
+-
+2
+\left\| \mathbf{\bar{b}} \right\|^{2}
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)
+\left(
+\mathbf{Q}^{(1)T}\mathbf{\bar{c}}
++
+\mathbf{Q}^{(2)T}\mathbf{\bar{b}}
+\right)
++
+6
+\left(
+\mathbf{\bar{b}}^{T}
+\mathbf{\bar{c}}
+\right)^{2}
+\mathbf{Q}^{(1)T}\mathbf{\bar{b}}
+}
+{\left\| \mathbf{\bar{b}} \right\|^{8}}
+\end{equation}
+
+\end{comment}
+

@@ -19,18 +19,18 @@ So that, it is fulfilled that
 \begin{equation}
 \mathbf{p}^{(n)}(t)=
 \begin{bmatrix}
-p_{x}^{(n)}(t) & p_{y}^{(n)}(t) & p_{z}^{(n)}(t),
-\end{bmatrix}^{T}
+x^{(n)}(t) & y^{(n)}(t) & z^{(n)}(t)
+\end{bmatrix}^{T},
 \end{equation}
 where
 \begin{equation}
-p_{x}^{(n)}(t)=a_{x}^{(n)}+b_{x}^{(n)}(t-n)+c_{x}^{(n)}(t-n)^{2}+d_{x}^{(n)}(t-n)^{3},
+x^{(n)}(t)=a_{x}^{(n)}+b_{x}^{(n)}(t-n)+c_{x}^{(n)}(t-n)^{2}+d_{x}^{(n)}(t-n)^{3},
 \end{equation}
 \begin{equation}
-p_{y}^{(n)}(t)=a_{y}^{(n)}+b_{y}^{(n)}(t-n)+c_{y}^{(n)}(t-n)^{2}+d_{y}^{(n)}(t-n)^{3},
+y^{(n)}(t)=a_{y}^{(n)}+b_{y}^{(n)}(t-n)+c_{y}^{(n)}(t-n)^{2}+d_{y}^{(n)}(t-n)^{3},
 \end{equation}
 \begin{equation}
-p_{z}^{(n)}(t)=a_{z}^{(n)}+b_{z}^{(n)}(t-n)+c_{z}^{(n)}(t-n)^{2}+d_{z}^{(n)}(t-n)^{3}.
+z^{(n)}(t)=a_{z}^{(n)}+b_{z}^{(n)}(t-n)+c_{z}^{(n)}(t-n)^{2}+d_{z}^{(n)}(t-n)^{3}.
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -132,17 +132,35 @@ Additionally, we can define
  $\frac{\partial^{2} \mathbf{A}^{(n)}(t)}{\partial t^{2}} \equiv D_{t}^{2}\mathbf{A}^{(n)}(t)$, 
  then
  
-\begin{equation}\label{eq:primeder3}
+\begin{align}\label{eq:primeder3a}
 \frac{\partial \mathbf{p}^{(n)}(t)}{\partial t}
-=
-D_{t}\mathbf{A}^{(n)}(t) \mathbf{w}^{(n)} 
-\qquad
-\wedge
-\qquad
+&=
+D_{t}\mathbf{A}^{(n)}(t) \mathbf{w}^{(n)} \\
+~
+&=
+\begin{bmatrix}
+b_{x}^{(n)}+2(t-n) c_{x}^{(n)}+3(t-n)^{2} d_{x}^{(n)}\\
+b_{y}^{(n)}+2(t-n) c_{y}^{(n)}+3(t-n)^{2} d_{y}^{(n)}\\
+b_{z}^{(n)}+2(t-n) c_{z}^{(n)}+3(t-n)^{2} d_{z}^{(n)}
+\end{bmatrix}
+\end{align}
+
+
+\begin{align}\label{eq:primeder3b}
 \frac{\partial^{2} \mathbf{p}^{(n)}(t)}{\partial t^{2}}
-=
-D_{t}^{2}\mathbf{A}^{(n)}(t) \mathbf{w}^{(n)}.
-\end{equation}
+&=
+D_{t}^{2}\mathbf{A}^{(n)}(t) \mathbf{w}^{(n)}\\
+~ 
+&=
+\begin{bmatrix}
+2 c_{x}^{(n)}+6(t-n) d_{x}^{(n)}\\
+2 c_{y}^{(n)}+6(t-n) d_{y}^{(n)}\\
+2 c_{z}^{(n)}+6(t-n) d_{z}^{(n)}
+\end{bmatrix}
+\end{align}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -179,6 +197,9 @@ we obtain for $0 \leq n\leq N-2$
 \mathbf{A}^{(N-2)}(N-1) \mathbf{w}^{(N-2)}=\mathbf{r}^{(N-1)}
 \in \mathbb{R}^{3},
 \end{equation}
+
+
+
 
 
 where, using the Eq. \ref{eq:Ant}, we know that
@@ -292,11 +313,11 @@ so that
 
 \subsubsection{Matricial form of the boundary conditions in internal point equation's}
 Using % 
-the Eqs. \ref{eq:primeder0}, \ref{eq:primeder1}, \ref{eq:primeder2} and \ref{eq:primeder3} in 
+the Eqs. \ref{eq:primeder0}, \ref{eq:primeder1}, \ref{eq:primeder2}, \ref{eq:primeder3a} and \ref{eq:primeder3b} in 
 the Eqs. \ref{eq:bound1}, \ref{eq:bound2} and \ref{eq:bound3},
 we obtain for $0 \leq n\leq N-3$
 \begin{equation}
- \mathbf{A}^{(n)}(n+1) \mathbf{w}^{(n)} - \mathbf{A}^{n+1}(n+1) \mathbf{w}^{(n+1)} 
+ \mathbf{A}^{(n)}(n+1) \mathbf{w}^{(n)} - \mathbf{A}^{(n+1)}(n+1) \mathbf{w}^{(n+1)} 
  =
  \mathbf{0} \in \mathbb{R}^{3},
 \end{equation}
@@ -305,7 +326,7 @@ we obtain for $0 \leq n\leq N-3$
 D_{t}\mathbf{A}^{(n)}(n+1)
 \mathbf{w}^{(n)}
 -
-D_{t}\mathbf{A}^{n+1}(n+1)
+D_{t}\mathbf{A}^{(n+1)}(n+1)
 \mathbf{w}^{(n+1)}
 =\mathbf{0}\in \mathbb{R}^{3},
 \end{equation}
@@ -315,7 +336,7 @@ D_{t}\mathbf{A}^{n+1}(n+1)
 D_{t}^{2}\mathbf{A}^{(n)}(n+1)
 \mathbf{w}^{(n)}
 -
-D_{t}^{2}\mathbf{A}^{n+1}(n+1)
+D_{t}^{2}\mathbf{A}^{(n+1)}(n+1)
 \mathbf{w}^{(n+1)}
 =\mathbf{0}\in \mathbb{R}^{3}.
 \end{equation}
@@ -324,9 +345,9 @@ Grouping in a matrix
 
 \begin{equation}
 \begin{bmatrix}
-\mathbf{A}^{(n)}(n+1) & -\mathbf{A}^{n+1}(n+1)\\
-D_{t}\mathbf{A}^{(n)}(n+1) & -D_{t}\mathbf{A}^{n+1}(n+1)\\
-D_{t}^{2}\mathbf{A}^{(n)}(n+1) & -D_{t}^{2}\mathbf{A}^{n+1}(n+1)
+\mathbf{A}^{(n)}(n+1) & -\mathbf{A}^{(n+1)}(n+1)\\
+D_{t}\mathbf{A}^{(n)}(n+1) & -D_{t}\mathbf{A}^{(n+1)}(n+1)\\
+D_{t}^{2}\mathbf{A}^{(n)}(n+1) & -D_{t}^{2}\mathbf{A}^{(n+1)}(n+1)
 \end{bmatrix}
 \begin{bmatrix}
 \mathbf{w}^{(n)}\\
@@ -359,7 +380,7 @@ D_{t} \mathbf{A}^{(n)}(n+1)
 \end{equation}
 
 \begin{equation}\label{eq:Q11}
-D_{t} \mathbf{A}^{n+1}(n+1)
+D_{t} \mathbf{A}^{(n+1)}(n+1)
 =
 \left[
 \begin{array}{cccc:cccc:cccc}
@@ -397,7 +418,7 @@ D_{t}^{2} \mathbf{A}^{(n)}(n+1)
 \end{equation}
 
 \begin{equation}\label{eq:Q21}
-D_{t}^{2} \mathbf{A}^{n+1}(n+1)
+D_{t}^{2} \mathbf{A}^{(n+1)}(n+1)
 =
 \left[
 \begin{array}{cccc:cccc:cccc}
@@ -511,7 +532,7 @@ Applying the derivative in relation of vector $\mathbf{w}$
 in the cost function $E_{1}(\mathbf{w})$ of Eq. \ref{eq:costfunc1}, 
 we obtain
 
-\begin{equation}
+\begin{equation}\label{eq:E1}
 \frac{\partial E_{1}(\mathbf{w})}{\partial \mathbf{w}}
 =
 2
@@ -533,3 +554,49 @@ we obtain
 \end{bmatrix}
 \right)
 \end{equation}
+
+\section{Parameter calculus of 3D parametric cubic spline}
+\label{sec:solvecubicspline}
+Using the Eq. \ref{eq:E1} and the gradient descent technique, we obtain
+\begin{equation}
+\mathbf{w}_{i+1}
+\leftarrow 
+\mathbf{w}_{i}
+-
+\alpha
+\frac{\partial E_{1}(\mathbf{w})}{\partial \mathbf{w}}
+\end{equation}
+
+\begin{equation}
+\mathbf{w}_{i+1}
+\leftarrow 
+\mathbf{w}_{i}
+-
+2
+\alpha
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}^{T}
+\mathbf{D}
+\left(
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}
+\mathbf{w}
+-
+\begin{bmatrix}
+\mathbf{r}\\
+\mathbf{0}
+\end{bmatrix}
+\right)
+\end{equation}
+
+where $\alpha$ is a learning hyper-parameter and 
+$\mathbf{w}_{0}$ 
+will be calculated following the calculus of 3D parametric linear spline
+seen in the Section \ref{sec:solvelinearspline}.
+The iteration follow until a maximum number od iteration $i$ or until reach a
+minimum defined error $E_1(\mathbf{w}_{i})$. 
+
