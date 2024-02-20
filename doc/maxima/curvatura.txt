@@ -1,0 +1,68 @@
+fx(t):=w[0]+w[1]*t+w[2]*t^2 +w[3]*t^3;
+fy(t):=w[4]+w[5]*t+w[6]*t^2 +w[7]*t^3;
+fz(t):=w[8]+w[9]*t+w[10]*t^2+w[11]*t^3;
+
+f(t):=[fx(t),fy(t),fz(t)];
+
+df:ev([ diff(fx(t),t), diff(fy(t),t), diff(fz(t),t) ]);
+Df(t):=ev(df);
+
+ddf:ev([ diff(fx(t),t,2), diff(fy(t),t,2), diff(fz(t),t,2) ]);
+DDf(t):=ev(ddf);
+
+
+###############################################################################
+load(vect);
+
+V(t):=express(Df(t)~DDf(t));
+
+R(t):=ev((V(t).V(t))/(Df(t).Df(t))^3);
+
+dR[0](t):=diff(R(t),w[0]);
+dR[1](t):=diff(R(t),w[1]);
+dR[2](t):=diff(R(t),w[2]);
+dR[3](t):=diff(R(t),w[3]);
+dR[4](t):=diff(R(t),w[4]);
+dR[5](t):=diff(R(t),w[5]);
+dR[6](t):=diff(R(t),w[6]);
+dR[7](t):=diff(R(t),w[7]);
+dR[8](t):=diff(R(t),w[8]);
+dR[9](t):=diff(R(t),w[9]);
+dR[10](t):=diff(R(t),w[10]);
+dR[11](t):=diff(R(t),w[11]);
+
+tmp : file_output_append;
+
+file_output_append:false;
+stringout("Dsr0.txt",ev(dR[0](0)));
+file_output_append:true;
+stringout("Dsr0.txt",ev(dR[1](0)));
+stringout("Dsr0.txt",ev(dR[2](0)));
+stringout("Dsr0.txt",ev(dR[3](0)));
+stringout("Dsr0.txt",ev(dR[4](0)));
+stringout("Dsr0.txt",ev(dR[5](0)));
+stringout("Dsr0.txt",ev(dR[6](0)));
+stringout("Dsr0.txt",ev(dR[7](0)));
+stringout("Dsr0.txt",ev(dR[8](0)));
+stringout("Dsr0.txt",ev(dR[9](0)));
+stringout("Dsr0.txt",ev(dR[10](0)));
+stringout("Dsr0.txt",ev(dR[11](0)));
+
+file_output_append:false;
+stringout("Dsr1.txt",ev(dR[0](1)));
+file_output_append:true;
+stringout("Dsr1.txt",ev(dR[1](1)));
+stringout("Dsr1.txt",ev(dR[2](1)));
+stringout("Dsr1.txt",ev(dR[3](1)));
+stringout("Dsr1.txt",ev(dR[4](1)));
+stringout("Dsr1.txt",ev(dR[5](1)));
+stringout("Dsr1.txt",ev(dR[6](1)));
+stringout("Dsr1.txt",ev(dR[7](1)));
+stringout("Dsr1.txt",ev(dR[8](1)));
+stringout("Dsr1.txt",ev(dR[9](1)));
+stringout("Dsr1.txt",ev(dR[10](1)));
+stringout("Dsr1.txt",ev(dR[11](1)));
+    
+file_output_append : tmp;
+
+

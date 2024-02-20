@@ -5,11 +5,10 @@ sys.path.append('../src')
 
 import extra
 import PathFillingPoints.Splines.Cubic3D as pfp
-import PathFillingPoints.Splines.Cubic3DSolver as solver
 import numpy as np
 
 
-P=[[0,0,0],[1,1,1],[1,1,2],[1,2,2],[2,2,2]];
+P=[[0,0,0],[1,1,1],[1,1,2],[1,2,2],[2,2,2],[2,2,3],[2,2,4],[2,3,4]];
 
 
 ################################################################################
@@ -46,9 +45,9 @@ extra.plot_data(P,spl,L=64);
 beta=0.02;
 spl=pfp.CubicSpline3D(  P,
                         beta=beta,
-                        weight_pr=1.0,
+                        weight_pr=0.5,
                         weight_pp=4.0,
-                        weight_dpdp=1.0,
+                        weight_dpdp=2.0,
                         weight_ddpddp=1.0);
 
 print('\n')

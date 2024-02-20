@@ -2,7 +2,7 @@
 
 import numpy as np
 import math
-import PathFillingPoints.Splines.Cubic3DSolver as solver
+import PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolver as solver
 
 class CubicSpline3D():
     def __init__(self,  Points:list,
