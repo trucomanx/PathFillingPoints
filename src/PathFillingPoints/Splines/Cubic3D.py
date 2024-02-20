@@ -5,14 +5,30 @@ import math
 import PathFillingPoints.Splines.Cubic3DSolver as solver
 
 class CubicSpline3D():
-    def __init__(self,Points:list,w0=None,alpha=0.01,max_iter=10000,min_mse=1e-5,beta=0.001):
+    def __init__(self,  Points:list,
+                        w0=None,
+                        alpha=0.01,
+                        max_iter=20000,
+                        min_mse=1e-5,
+                        beta=0.001,
+                        weight_pr=1.0,
+                        weight_pp=1.0,
+                        weight_dpdp=1.0,
+                        weight_ddpddp=1.0):
         self.N = len(Points);
+        
+        weight_tot=weight_pr+weight_pp+weight_dpdp+weight_ddpddp;
         self.w, self.MSE = solver.to_get_cubic3d_weight_list(   Points,
                                                                 w0=w0,
                                                                 alpha=alpha,
                                                                 max_iter=max_iter,
                                                                 min_mse=min_mse,
-                                                                beta=beta);
+                                                                beta=beta,
+                                                                weight_pr=(weight_pr/weight_tot),
+                                                                weight_pp=(weight_pp/weight_tot),
+                                                                weight_dpdp=(weight_dpdp/weight_tot),
+                                                                weight_ddpddp=(weight_ddpddp/weight_tot)
+                                                                );
         
     def eval(self,t):
         n=int(math.floor(t));

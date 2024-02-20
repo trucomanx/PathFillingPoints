@@ -90,7 +90,16 @@ def d_square_curvature1(wn):
     
 ################################################################################
     
-def to_get_cubic3d_weight_list(Points:list,w0=None,alpha=0.01,max_iter=10000,min_mse=1e-5,beta=0.001):
+def to_get_cubic3d_weight_list(Points:list,
+                                w0=None,
+                                alpha=0.01,
+                                max_iter=20000,
+                                min_mse=1e-5,
+                                beta=0.001,
+                                weight_pr=1.0,
+                                weight_pp=1.0,
+                                weight_dpdp=1.0,
+                                weight_ddpddp=1.0):
     N = len(Points);
     
     Nr, Nc = Q00.shape;
@@ -101,12 +110,19 @@ def to_get_cubic3d_weight_list(Points:list,w0=None,alpha=0.01,max_iter=10000,min
     
     P = np.zeros((Nr*N,Nc*(N-1)));
     
+    ## Pesos de P
+    wp=[weight_pr]*(Nr*N);
+    
     for l in range(N-1):
         P[Nr*l:(Nr*l+Nr),Nc*l:(Nc*l+Nc)]=Q01;
     P[(Nr*(N-1)):(Nr*N),Nc*(N-2):(Nc*(N-1))]=Q00;
     
     
     Q = np.zeros((3*Nr*(N-2),Nc*(N-1)));
+    
+    #Pesos de Q
+    wq=( [weight_pp]*Nr + [weight_dpdp]*Nr + [weight_ddpddp]*Nr )*(N-2);
+    
     for l in range(N-2):
         Q[ Nr*(3*l+0):Nr*(3*l+1), Nc*(l+0):Nc*(l+1) ] = Q00;
         Q[ Nr*(3*l+0):Nr*(3*l+1), Nc*(l+1):Nc*(l+2) ] =-Q01;
@@ -127,13 +143,14 @@ def to_get_cubic3d_weight_list(Points:list,w0=None,alpha=0.01,max_iter=10000,min
         c[3*n+2]=Points[n][2];
     
     # Calculo de w
-    C= c.reshape((-1,1)); 
-    W=w0.reshape((-1,1)); 
+    C = c.reshape((-1,1)); 
+    W = w0.reshape((-1,1)); 
+    D = np.diag(wp+wq);
     
     j=0;
     E=[np.square(B@W-C).mean()];
     while j<max_iter and E[-1]>=min_mse:
-        dW=2*B.T@(B@W-C);
+        dW=2*B.T@(D@(B@W-C));
         
         if beta>0:
             dK=np.zeros(W.shape);
