@@ -18,6 +18,7 @@ class CubicSpline3D():
         self.N = len(Points);
         
         weight_tot=weight_pr+weight_pp+weight_dpdp+weight_ddpddp;
+        
         self.w, self.MSE = solver.to_get_cubic3d_weight_list(   Points,
                                                                 w0=w0,
                                                                 alpha=alpha,
