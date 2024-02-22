@@ -1,0 +1,315 @@
+\section{Derivative}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivative of $\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)$}
+
+Given 
+a matrix $\mathbf{A} \in \mathbb{R}^{M\times N}$,
+a vector $\mathbf{w} \in \mathbb{R}^{N}$,
+a vector $\mathbf{c} \in \mathbb{R}^{M}$,
+a vectorial function $\mathbf{f}:\mathbb{R}^{M} \to \mathbb{R}^{L}$ with variable vectorial
+and 
+the variable $t \in \mathbb{R}$. 
+Then
+
+\begin{align}
+\label{eq:fAwc}
+\frac{\partial \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}
+&=
+\begin{bmatrix}
+\frac{\partial f_{1}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}\\[4pt]
+\frac{\partial f_{2}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}\\[4pt]
+\vdots\\[4pt]
+\frac{\partial f_{l}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}\\[4pt]
+\vdots
+\frac{\partial f_{L}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}\\[4pt]
+\end{bmatrix}
+\end{align}
+
+Using the chain rule \cite[pp. 15]{petersen2008matrix} and 
+given 
+a function $f:\mathbb{R}^{M} \to \mathbb{R}$ 
+a vector $\mathbf{v} \in \mathbb{R}^{M}$ 
+and 
+the variable $t \in \mathbb{R}$,
+we now that
+
+\begin{equation}
+\frac{\partial f\left(\mathbf{v}\right)}{\partial t} = 
+\sum_{m}^{M}
+\frac{\partial f\left(\mathbf{v}\right)}{\partial v_m}
+\frac{\partial v_m}{\partial t}
+\end{equation}
+
+Thus, if we define 
+\begin{equation}
+[\dots,~v_{m},~\dots]^{T}=\mathbf{v}=\mathbf{A}\mathbf{w}-\mathbf{c},
+\end{equation}
+then
+
+\begin{align}
+\frac{\partial f_{l}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}
+&=
+\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial t}\\[4pt]
+&=
+\sum_{m}^{M}
+\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial v_m}
+\frac{\partial v_m}{\partial t}
+\end{align}
+
+If we define $\boxed{\mathbf{1}}_{m}\equiv [\dots,~0,~1,0,\dots]^{T}$,
+a vector with a unique 1 in the position $m$. 
+Then $v_m = \boxed{\mathbf{1}}_{m}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)$,
+so that the last equation can be written as
+
+\begin{align}
+\frac{\partial f_{l}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}
+&=
+\sum_{m}^{M}
+\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial v_m}
+\frac{\partial \boxed{\mathbf{1}}_{m}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}\\[4pt]
+&=
+\sum_{m}^{M}
+\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial v_m}
+\boxed{\mathbf{1}}_{m}^{T}\left(\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\right)\\[4pt]
+&=
+\left\{
+\sum_{m}^{M}
+\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial v_m}
+\boxed{\mathbf{1}}_{m}^{T}
+\right\}
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\\[4pt]
+&=
+\begin{bmatrix}
+\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial v_1} &
+%\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial v_2} &
+\dots &
+\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial v_m} &
+\dots &
+\frac{\partial f_{l}\left(\mathbf{v}\right)}{\partial v_M} 
+\end{bmatrix}^{T}
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\\[4pt]
+&=
+\nabla^{T} f_{l}\left(\mathbf{v}\right)
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}
+\end{align}
+
+Appplying in the Eq. \ref{eq:fAwc}, we obtain
+
+\begin{align}
+\frac{\partial \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}
+&=
+\begin{bmatrix}
+\nabla^{T} f_{1}\left(\mathbf{v}\right)
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\\[4pt]
+\nabla^{T} f_{2}\left(\mathbf{v}\right)
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\\[4pt]
+\vdots\\[4pt]
+\nabla^{T} f_{l}\left(\mathbf{v}\right)
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\\[4pt]
+\vdots
+\nabla^{T} f_{L}\left(\mathbf{v}\right)
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\\[4pt]
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\nabla^{T} f_{1}\left(\mathbf{v}\right)\\[4pt]
+\nabla^{T} f_{2}\left(\mathbf{v}\right)\\[4pt]
+\vdots\\[4pt]
+\nabla^{T} f_{l}\left(\mathbf{v}\right)\\[4pt]
+\vdots
+\nabla^{T} f_{L}\left(\mathbf{v}\right)\\[4pt]
+\end{bmatrix}
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\\
+\end{align}
+
+\begin{equation}
+\label{eq:DfAwc}
+\frac{\partial \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t}
+=
+\nabla \mathbf{f}(\mathbf{v})
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}
+\end{equation}
+
+where $\nabla \mathbf{f}(\mathbf{v})$ is the jacobian matrix of $\mathbf{f}(\mathbf{v})$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivative of $\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$}
+
+Given a diagonal matrix $\mathbf{Q} \in \mathbb{R}^{L\times L}$,
+a matrix $\mathbf{A} \in \mathbb{R}^{M\times N}$,
+a vector $\mathbf{w} \in \mathbb{R}^{N}$,
+a vector $\mathbf{c} \in \mathbb{R}^{M}$ and 
+a vectorial function $\mathbf{f}:\mathbb{R}^{M} \to \mathbb{R}^{L}$.
+
+\begin{align}
+E&=\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2\\
+~&=\mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)
+\end{align}
+
+If we define $\mathbf{A}$, $\mathbf{Q}$, $\mathbf{c}$ and $\mathbf{f}$ not depend on the variable $t$.
+
+\begin{align}
+\frac{\partial E}{\partial t}
+&=\frac{\partial\left\{ \mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\}}{\partial t} \\
+~
+&=
+\left\{\frac{\partial \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t} \right\}^{T}
+\mathbf{Q}\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)
++
+\mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}
+\frac{\partial\left\{ \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\}}{\partial t} \\
+~
+&=
+2
+\mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}
+\frac{\partial \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t} 
+\end{align}
+
+Applying the Eq. \ref{eq:DfAwc}
+
+\begin{align}
+\label{eq:dEdt}
+\frac{\partial E}{\partial t}
+&=
+2
+\mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}
+\nabla \mathbf{f}(\mathbf{v})
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivative of $\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$
+in relation to $\mathbf{w}$}
+
+Given the expression $E=\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$,
+where
+the matrix $\mathbf{A} \in \mathbb{R}^{M\times N}$,
+the vector $\mathbf{w} \in \mathbb{R}^{N}$,
+the vector $\mathbf{c} \in \mathbb{R}^{M}$ and 
+the vectorial function $\mathbf{f}:\mathbb{R}^{M} \to \mathbb{R}^{L}$.
+If we define $\mathbf{A}$, $\mathbf{Q}$, $\mathbf{c}$ and $\mathbf{f}$ not depend of vector $\mathbf{w}$. 
+Then 
+
+\begin{align}
+\frac{\partial E}{\partial \mathbf{w}}
+&=
+\begin{bmatrix}
+\frac{\partial E}{\partial w_{1}}&
+\frac{\partial E}{\partial w_{1}}&
+\dots&
+\frac{\partial E}{\partial w_{n}}&
+\dots&
+\frac{\partial E}{\partial w_{N}}
+\end{bmatrix}^{T}
+\end{align}
+
+Using the Eq. \ref{eq:dEdt}
+\begin{align}
+\frac{\partial E}{\partial \mathbf{w}}
+&=
+\left\{
+2
+\mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}
+\nabla \mathbf{f}(\mathbf{v})
+\mathbf{A}
+\begin{bmatrix}
+\frac{\partial \mathbf{w}}{\partial w_{1}}&
+\frac{\partial \mathbf{w}}{\partial w_{2}}&
+\dots&
+\frac{\partial \mathbf{w}}{\partial w_{n}}&
+\dots&
+\frac{\partial \mathbf{w}}{\partial w_{N}}
+\end{bmatrix}
+\right\}^{T}\\[4pt]
+&=
+\left\{
+2
+\mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}
+\nabla \mathbf{f}(\mathbf{v})
+\mathbf{A}
+\right\}^{T}\\[4pt]
+&=
+2
+\left\{
+\mathbf{Q}
+\nabla \mathbf{f}(\mathbf{v})
+\mathbf{A}
+\right\}^{T}
+\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\\[4pt]
+&=
+2
+\mathbf{A}^{T}
+\left\{
+\mathbf{Q}
+\nabla \mathbf{f}(\mathbf{v})
+\right\}^{T}
+\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)
+\end{align}
+
+\begin{equation}
+\frac{\partial E}{\partial \mathbf{w}}
+=
+2
+\mathbf{A}^{T}
+\left\{
+\nabla \mathbf{f}(\mathbf{v})
+\right\}^{T}
+\mathbf{Q}
+\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Derivative for a specific type of function $\mathbf{f}(\mathbf{v})$}
+
+Given 
+a vector $\mathbf{v} \in \mathbb{R}^{M}$ and 
+a vectorial function $\mathbf{f}:\mathbb{R}^{M} \to \mathbb{R}^{M}$ with vector parameter 
+$\mathbf{v}\equiv \left[v_{1}, v_{2}, \dots,v_{m},\dots v_{M}\right]^{T}$.
+If we define 
+\begin{equation}
+\mathbf{f}(\mathbf{v}) 
+\equiv
+\begin{bmatrix}
+f_{1}(v_{1}) &
+f_{2}(v_{2}) &
+\dots&
+f_{m}(v_{m}) &
+\dots&
+f_{M}(v_{M}) &
+\end{bmatrix}^{T},
+\end{equation}
+where $f_{m}:\mathbb{R} \to \mathbb{R}$, $\forall 1 \leq m\leq M$.
+Then, we can calculate the jacobian matrix of function $\mathbf{f}(\mathbf{v})$ as
+
+\begin{equation}
+\nabla\mathbf{f}(\mathbf{v}) 
+\equiv
+\begin{bmatrix}
+\frac{\partial f_{1}(v_{1})}{\partial v_{1}} & 0  & \dots & 0      & 0\\
+0  & \frac{\partial f_{2}(v_{2})}{\partial v_{2}} & \dots & 0      & 0\\
+\vdots                  & \vdots                  & \dots & \vdots & \vdots\\
+0                       & 0                       & \dots & \frac{\partial f_{M-1}(v_{M-1})}{\partial v_{M-1}} & 0\\
+0                       & 0                       & \dots & 0      & \frac{\partial f_{M}(v_{M})}{\partial v_{M}}
+\end{bmatrix},
+\end{equation}
+
+\begin{equation}
+\nabla \mathbf{f}^{T}(\mathbf{v}) 
+\equiv
+\nabla \mathbf{f}(\mathbf{v}) 
+\equiv
+diag
+\left(
+\begin{bmatrix}
+\frac{\partial f_{1}(v_{1})}{\partial v_{1}} &
+\frac{\partial f_{2}(v_{2})}{\partial v_{2}} &
+\dots&
+\frac{\partial f_{m}(v_{m})}{\partial v_{m}} &
+\dots&
+\frac{\partial f_{M}(v_{M})}{\partial v_{M}} &
+\end{bmatrix}
+\right),
+\end{equation}
+
