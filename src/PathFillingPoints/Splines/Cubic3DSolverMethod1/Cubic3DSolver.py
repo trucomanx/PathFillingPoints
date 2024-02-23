@@ -5,18 +5,20 @@ import numpy as np
 import PathFillingPoints.Splines.Linear3DSolver as linsolver
 
 
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc import Q00
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc import Q01
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc import Q10
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc import Q11
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc import Q20
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc import Q21
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q00
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q01
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q10
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q11
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q20
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q21
 
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverPoly import DPoly
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverPoly import DDPoly
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverPoly import DPoly
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverPoly import DDPoly
 
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc import d_square_curvature0 
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc import d_square_curvature1
+import PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc as pscca
+import PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDscNumeric as psccn
+
+from tqdm import tqdm
 
 ################################################################################
     
@@ -29,7 +31,9 @@ def to_get_cubic3d_weight_list(Points:list,
                                 weight_pr=1.0,
                                 weight_pp=1.0,
                                 weight_dpdp=1.0,
-                                weight_ddpddp=1.0):
+                                weight_ddpddp=1.0,
+                                cnumeric=False,
+                                show=False):
     N = len(Points);
     
     Nr, Nc = Q00.shape;
@@ -78,17 +82,23 @@ def to_get_cubic3d_weight_list(Points:list,
     D = np.diag(wp+wq);
     
     j=0;
+    if cnumeric:
+        psccn.ModDeltaW.Wold=np.zeros(W.shape);
+    
+    if show:
+        pbar = tqdm(total=max_iter);
+    
     E=[np.square(B@W-C).mean()];
     while j<max_iter and E[-1]>=min_mse:
         dW=2*B.T@(D@(B@W-C));
         
         if beta>0:
-            dK=np.zeros(W.shape);
-            for i in range(N-1):
-                S=d_square_curvature0(W[(i*Nc):(i*Nc+Nc),0])
-                +d_square_curvature1(W[(i*Nc):(i*Nc+Nc),0]);
-                dK[(i*Nc):(i*Nc+Nc),0]=S/(2.0*(N-1));
-                
+            if cnumeric:
+                delta=psccn.ModDeltaW(W);###
+                dK=psccn.d_square_curvature(W,Nc,h=delta*0.5);###
+            else:
+                dK=pscca.d_square_curvature(W,Nc);
+            
             dW=dW+beta*dK;
         
         W=W-alpha*dW;
@@ -97,6 +107,14 @@ def to_get_cubic3d_weight_list(Points:list,
         E.append( (e.T@(D@e)).mean() );
         
         j=j+1;
+        
+        if show:
+            pbar.set_description("err:%10.3E" % E[-1]);
+            pbar.update(1);
+    
+    if show:
+        pbar.close();
+    
     
     return W.reshape((-1,)),E;
 

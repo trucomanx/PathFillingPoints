@@ -1,36 +1,19 @@
 import numpy as np
 from numpy.linalg import norm as Norm
 
-Q00=np.array([  [1.0,1.0,1.0,1.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 1.0,1.0,1.0,1.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 1.0,1.0,1.0,1.0]]);
-
-Q01=np.array([  [1.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 1.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 1.0,0.0,0.0,0.0]]);
-
-Q10=np.array([  [0.0,1.0,2.0,3.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,1.0,2.0,3.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,1.0,2.0,3.0]]);
-
-Q11=np.array([  [0.0,1.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0]]);
-
-Q20=np.array([  [0.0,0.0,2.0,6.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,0.0,2.0,6.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,2.0,6.0]]);
-
-Q21=np.array([  [0.0,0.0,2.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,0.0,2.0,0.0, 0.0,0.0,0.0,0.0],
-                [0.0,0.0,0.0,0.0, 0.0,0.0,0.0,0.0, 0.0,0.0,2.0,0.0]]);
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q00
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q01
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q10
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q11
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q20
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q21
                 
 
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverPoly import DPoly
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverPoly import DDPoly
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverPoly import DPoly
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverPoly import DDPoly
 
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverSc import square_curvature0 
-from PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverSc import square_curvature1
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverSc import square_curvature0 
+from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverSc import square_curvature1 
 
 def d_square_curvature0(wn):
     DDP=DDPoly(wn,0);
@@ -126,3 +109,15 @@ def d_square_curvature1(w):
 
 
 '''
+
+
+def d_square_curvature(W,Nc):
+    dK=np.zeros(W.shape);
+    N=1+int(W.size/Nc);
+    
+    for i in range(N-1):
+        S=d_square_curvature0(W[(i*Nc):(i*Nc+Nc),0])
+        +d_square_curvature1(W[(i*Nc):(i*Nc+Nc),0]);
+        dK[(i*Nc):(i*Nc+Nc),0]=S/(2.0*(N-1));
+    
+    return dK;
