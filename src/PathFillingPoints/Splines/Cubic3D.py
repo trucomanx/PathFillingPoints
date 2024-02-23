@@ -14,7 +14,10 @@ class CubicSpline3D():
                         weight_pr=1.0,
                         weight_pp=1.0,
                         weight_dpdp=1.0,
-                        weight_ddpddp=1.0):
+                        weight_ddpddp=1.0,
+                        func_offset=0.0,
+                        cnumeric=False,
+                        show=False):
         self.N = len(Points);
         
         weight_tot=weight_pr+weight_pp+weight_dpdp+weight_ddpddp;
@@ -28,7 +31,10 @@ class CubicSpline3D():
                                                                 weight_pr=(weight_pr/weight_tot),
                                                                 weight_pp=(weight_pp/weight_tot),
                                                                 weight_dpdp=(weight_dpdp/weight_tot),
-                                                                weight_ddpddp=(weight_ddpddp/weight_tot)
+                                                                weight_ddpddp=(weight_ddpddp/weight_tot),
+                                                                func_offset=func_offset,
+                                                                cnumeric=cnumeric,
+                                                                show=show
                                                                 );
         
     def eval(self,t):

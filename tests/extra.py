@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D # <--- This is important for 3d plotting 
 import numpy as np
 
-def plot_data(P:list,spl,L=64):
+def plot_data(P:list,spl,L=64,title=''):
     N=len(P);
     
     tline=np.linspace(0,N-1,L);
@@ -24,4 +24,5 @@ def plot_data(P:list,spl,L=64):
 
     Pn=np.array(P);
     ax.scatter(Pn[:,0], Pn[:,1], Pn[:,2]);
+    plt.title(title);
     plt.show()

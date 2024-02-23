@@ -111,6 +111,7 @@ def d_square_curvature1(w):
 '''
 
 
+
 def d_square_curvature(W,Nc):
     dK=np.zeros(W.shape);
     N=1+int(W.size/Nc);
@@ -121,3 +122,4 @@ def d_square_curvature(W,Nc):
         dK[(i*Nc):(i*Nc+Nc),0]=S/(2.0*(N-1));
     
     return dK;
+

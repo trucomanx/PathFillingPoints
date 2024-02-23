@@ -34,3 +34,5 @@
 /src/PathFillingPoints/Splines/Cubic3DSolverTools/__pycache__/Cubic3DSolverPoly.cpython-38.pyc
 /src/PathFillingPoints/Splines/Cubic3DSolverTools/__pycache__/Cubic3DSolverQ.cpython-38.pyc
 /src/PathFillingPoints/Splines/Cubic3DSolverTools/__pycache__/Cubic3DSolverSc.cpython-38.pyc
+/src/PathFillingPoints/Splines/Linear3DSolver/__pycache__/Linear3DSolver.cpython-38.pyc
+/src/PathFillingPoints/Splines/Cubic3DSolverTools/__pycache__/Cubic3DSolverCost.cpython-38.pyc

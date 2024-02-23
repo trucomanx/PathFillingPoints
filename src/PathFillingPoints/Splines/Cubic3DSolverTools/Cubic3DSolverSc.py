@@ -13,8 +13,14 @@ def square_curvature1(wn):
     DDP=DDPoly(wn,1);
     DP=DPoly(wn,1);
     return (Norm(np.cross(DP,DDP))**2)/(Norm(DP)**6);
+
     
-def square_curvature(W,Nc=12):
+def square_curvature(w,Nc=12):
+    if len(w.shape)>1:
+        W=w;
+    else:
+        W=w.reshape((-1,1));
+        
     N=1+int(W.size/Nc);
     
     S=0;

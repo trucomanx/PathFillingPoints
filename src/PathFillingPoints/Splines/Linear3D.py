@@ -2,7 +2,7 @@
 
 import numpy as np
 import math
-import PathFillingPoints.Splines.Linear3DSolver as solver
+import PathFillingPoints.Splines.Linear3DSolver.Linear3DSolver as solver
 
 
 class LinearSpline3D():

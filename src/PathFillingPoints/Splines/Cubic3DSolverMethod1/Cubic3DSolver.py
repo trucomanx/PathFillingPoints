@@ -2,15 +2,10 @@
 import sys
 import numpy as np
 
-import PathFillingPoints.Splines.Linear3DSolver as linsolver
+import PathFillingPoints.Splines.Linear3DSolver.Linear3DSolver as linsolver
 
 
 from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q00
-from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q01
-from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q10
-from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q11
-from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q20
-from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverQ import Q21
 
 from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverPoly import DPoly
 from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverPoly import DDPoly
@@ -18,9 +13,18 @@ from PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverPoly import DDPol
 import PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDsc as pscca
 import PathFillingPoints.Splines.Cubic3DSolverMethod1.Cubic3DSolverDscNumeric as psccn
 
+import PathFillingPoints.Splines.Cubic3DSolverTools.Cubic3DSolverCost as psccost
+
 from tqdm import tqdm
 
+
+
+def round2(number):
+    formatted_number_str = "{:.3e}".format(number);
+    return float(formatted_number_str);
+
 ################################################################################
+
     
 def to_get_cubic3d_weight_list(Points:list,
                                 w0=None,
@@ -32,6 +36,7 @@ def to_get_cubic3d_weight_list(Points:list,
                                 weight_pp=1.0,
                                 weight_dpdp=1.0,
                                 weight_ddpddp=1.0,
+                                func_offset=0.0,
                                 cnumeric=False,
                                 show=False):
     N = len(Points);
@@ -42,44 +47,19 @@ def to_get_cubic3d_weight_list(Points:list,
         w0=linsolver.to_get_linear3d_weight_list(Points);
         w0=linsolver.change_order_of_weight_list(w0,to_order=3);
     
-    P = np.zeros((Nr*N,Nc*(N-1)));
+    B=psccost.get_cubic3dsolver_bmatrix(N);
     
-    ## Pesos de P
-    wp=[weight_pr]*(Nr*N);
-    
-    for l in range(N-1):
-        P[Nr*l:(Nr*l+Nr),Nc*l:(Nc*l+Nc)]=Q01;
-    P[(Nr*(N-1)):(Nr*N),Nc*(N-2):(Nc*(N-1))]=Q00;
-    
-    
-    Q = np.zeros((3*Nr*(N-2),Nc*(N-1)));
-    
-    #Pesos de Q
-    wq=( [weight_pp]*Nr + [weight_dpdp]*Nr + [weight_ddpddp]*Nr )*(N-2);
-    
-    for l in range(N-2):
-        Q[ Nr*(3*l+0):Nr*(3*l+1), Nc*(l+0):Nc*(l+1) ] = Q00;
-        Q[ Nr*(3*l+0):Nr*(3*l+1), Nc*(l+1):Nc*(l+2) ] =-Q01;
-        
-        Q[ Nr*(3*l+1):Nr*(3*l+2), Nc*(l+0):Nc*(l+1) ] = Q10;
-        Q[ Nr*(3*l+1):Nr*(3*l+2), Nc*(l+1):Nc*(l+2) ] =-Q11;
-        
-        Q[ Nr*(3*l+2):Nr*(3*l+3), Nc*(l+0):Nc*(l+1) ] = Q20;
-        Q[ Nr*(3*l+2):Nr*(3*l+3), Nc*(l+1):Nc*(l+2) ] =-Q21;
-    
-    B=np.concatenate((P,Q), axis=0);
-    
-    c=np.zeros(Nr*N + 3*Nr*(N-2));
-    
-    for n in range(N):
-        c[3*n  ]=Points[n][0];
-        c[3*n+1]=Points[n][1];
-        c[3*n+2]=Points[n][2];
+    C=psccost.get_cubic3dsolver_ccolvector(Points);
     
     # Calculo de w
-    C = c.reshape((-1,1)); 
     W = w0.reshape((-1,1)); 
-    D = np.diag(wp+wq);
+    
+    ## Pesos 
+    D=psccost.get_cubic3dsolver_dmatrix(N,
+                                        weight_pr=weight_pr,
+                                        weight_pp=weight_pp,
+                                        weight_dpdp=weight_dpdp,
+                                        weight_ddpddp=weight_ddpddp);
     
     j=0;
     if cnumeric:
@@ -88,9 +68,20 @@ def to_get_cubic3d_weight_list(Points:list,
     if show:
         pbar = tqdm(total=max_iter);
     
-    E=[np.square(B@W-C).mean()];
+    v=B@W-C;
+    if func_offset==0.0:
+        E=[(v.T@(D@v)).mean()];
+    else:
+        E=[(psccost.func_vec(v,func_offset).T@D@psccost.func_vec(v,func_offset)).mean()];
+    
+    Alpha=alpha;
+    
     while j<max_iter and E[-1]>=min_mse:
-        dW=2*B.T@(D@(B@W-C));
+    
+        if func_offset==0.0:
+            dW=2*B.T@(D@v);
+        else:
+            dW=2*B.T@psccost.dfunc_vec(v,func_offset)@D@psccost.func_vec(v,func_offset);
         
         if beta>0:
             if cnumeric:
@@ -101,15 +92,32 @@ def to_get_cubic3d_weight_list(Points:list,
             
             dW=dW+beta*dK;
         
-        W=W-alpha*dW;
+        W=W-Alpha*dW;
         
-        e=(B@W-C);
-        E.append( (e.T@(D@e)).mean() );
-        
+        #Update error
+        v=B@W-C;
+        if func_offset==0.0:
+            E.append( (v.T@(D@v)).mean() );
+        else:
+            E.append( (psccost.func_vec(v,func_offset).T@D@psccost.func_vec(v,func_offset)).mean() );
         j=j+1;
         
+
+        
+        # Modifying learning rate
+        if len(E)>4:
+            if round2(E[-1])<=round2(E[-2]) and round2(E[-2])<=round2(E[-3]) :
+                Alpha=Alpha*1.01;
+            elif E[-1]>E[-2]:
+                Alpha=Alpha*0.95;
+        if Alpha>10*alpha:
+            Alpha=10*alpha;
+        if Alpha<alpha/10.0:
+            Alpha=alpha/10.0;
+            
+        # Show progress bar
         if show:
-            pbar.set_description("err:%10.3E" % E[-1]);
+            pbar.set_description("err:%10.3E alpha:%10.3E" % (E[-1],Alpha));
             pbar.update(1);
     
     if show:
