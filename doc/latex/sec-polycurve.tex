@@ -1,0 +1,108 @@
+\section{Piecewise polynomial curve $\mathbf{\bar{p}}(t)$}
+\label{sec:curvePiecewise}
+A parametrized curve $\mathbf{\bar{p}}(t)$ in real space can be formally defined as:
+
+\begin{equation}
+\mathbf{\bar{p}}: D \subseteq \mathbb{R} \to \mathbb{R}^M
+\end{equation}
+
+where: 
+
+\begin{itemize}
+\item $D$ is the domain of the parameterization, i.e., the set of values of $t$ for which $\mathbf{\bar{p}}(t)$ is defined.  
+\item $\mathbb{R}^M$ represents the space where the curve is contained.
+Being $M$ the dimension of space.
+\end{itemize}
+
+If the curve is defined only for a finite interval $t \in [a, b]$, then the domain is $D = [a, b]$. Otherwise, if the curve is defined for all real numbers, then $D = \mathbb{R}$.  
+
+
+
+
+Each segment of the curve, defined by $N$ points, is given by the function $\mathbf{p}^{(n)}(t)$, where $0 \leq n < N-1$.  
+Thus, the complete curve is defined as a piecewise function:
+
+\begin{equation}\label{eq:phatt}
+\mathbf{\bar{p}}(t) =
+\begin{cases} 
+\mathbf{p}^{(0)}(t), & t_0 \leq t < t_1 \\
+\mathbf{p}^{(1)}(t), & t_1 \leq t < t_2 \\
+\vdots \\
+\mathbf{p}^{(N-2)}(t), & t_{N-2} \leq t \leq t_{N-1}
+\end{cases}
+\end{equation}
+
+where
+\begin{itemize}
+\item $t_0, t_1, \dots, t_N $ define the parameter intervals for each segment.  
+\item Each function $\mathbf{p}^{(n)}: [t_{n},t_{n+1}] \subseteq \mathbb{R} \to \mathbb{R}^M$ represents a segment of the curve and can be a polynomial, spline, or any other interpolating function.  
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Continuity conditions}\label{sec:continuity}
+Continuity conditions must be satisfied to ensure a smooth transition between segments. 
+Given a piecewise-defined curve $\mathbf{\bar{p}}(t)$ as Eq.(\ref{eq:phatt}), 
+each segment $\mathbf{p}^{(n)}(t)$ must satisfy specific continuity conditions at the junctions $t_n$ to ensure smoothness:
+\begin{itemize}
+\item \textbf{Position continuity (\( C^0 \) continuity):}  
+   \[
+   \mathbf{p}^{(n)}(t_{n+1}) = \mathbf{p}^{(n+1)}(t_{n+1}), \quad \forall n \in \{0, \dots, N-2\}.
+   \]
+   This ensures that the segments connect without gaps.
+
+\item \textbf{First derivative continuity (\( C^1 \) continuity):}  
+   \[
+   \mathbf{p}^{(n)'}(t_{n+1}) = \mathbf{p}^{(n+1)'}(t_{n+1}), \quad \forall n \in \{0, \dots, N-2\}.
+   \]
+   This ensures a smooth velocity transition, preventing sharp corners.
+
+\item \textbf{Second derivative continuity (\( C^2 \) continuity):}  
+   \[
+   \mathbf{p}^{(n)''}(t_{n+1}) = \mathbf{p}^{(n+1)''}(t_{n+1}), \quad \forall n \in \{0, \dots, N-2\}.
+   \]
+   This ensures a smooth acceleration transition, avoiding abrupt changes in curvature.
+\item \textbf{End-point interpolation:}  
+   Each segment \(\mathbf{p}^{(n)}(t)\) must pass through a specified point \(\mathbf{r}^{(n)}\) at its endpoints:
+   \[
+   \mathbf{p}^{(n)}(t_n) = \mathbf{r}^{(n)}, \quad \mathbf{p}^{(n)}(t_{n+1}) = \mathbf{r}^{(n+1)}, \quad \forall n \in \{0, \dots, N-2\}.
+   \]
+   This ensures that each segment reaches the prescribed points in space.
+\end{itemize}
+
+\begin{comment}
+For a \textbf{natural cubic spline}, additional boundary conditions are often imposed, such as:
+\begin{itemize}
+\item \textbf{Clamped spline}: The first derivative at the endpoints is specified
+  \[
+  \mathbf{p}^{(0)'}(t_0) = \mathbf{v}_0, \quad \mathbf{p}^{(N-1)'}(t_N) = \mathbf{v}_N.
+  \]
+\item \textbf{Natural spline}: The second derivative at the endpoints is set to zero
+  \[
+  \mathbf{p}^{(0)''}(t_0) = 0, \quad \mathbf{p}^{(N-1)''}(t_N) = 0.
+  \]
+\end{itemize}
+\end{comment}
+These conditions ensure the smoothness and stability of the cubic spline in 3D space.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Curvature}
+\label{sec:curvaturepn}
+The curvature $\mathcal{K}_{(n)}(t)$ of a 3D parametric function, 
+$\mathbf{p}^{(n)}(t)\in \mathbb{R}^{3}$ with parameter $t$, 
+can be calculated 
+\cite[pp. 21]{toponogov2006differential} 
+using the following equation,
+
+\begin{equation}\label{eq:curvaturekn}
+\mathcal{K}_{(n)}(t)
+=
+\frac{\left\|\frac{\partial \mathbf{p}^{(n)}(t)}{\partial t} \times \frac{\partial^2 \mathbf{p}^{(n)}(t)}{\partial t^2} \right\|}
+{\left\|\frac{\partial \mathbf{p}^{(n)}(t)}{\partial t}\right\|^{3}}
+\equiv
+\frac{\left\|{\mathbf{p}^{(n)}}'(t) \times {\mathbf{p}^{(n)}}''(t) \right\|}
+{\left\|{\mathbf{p}^{(n)}}'(t)\right\|^{3}}
+\end{equation}

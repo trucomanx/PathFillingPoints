@@ -1,3 +1,5 @@
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{3D parametric linear spline }
@@ -13,7 +15,7 @@ close to the n-th position.
 
 Given a set of $N$ points $\mathbf{r}^{(n)}\in\mathbb{R}^{3}$, $\forall$ $0\leq n \leq N-1$, 
 we can generate a linear spline with $N-2$ polynomials $\mathbf{\hat{p}}^{(n)}(t)$, $\forall$ $0\leq n \leq N-2$, 
-according the Fig. \ref{fig:3DLinearSplinePoly}.
+according to Fig. \ref{fig:3DLinearSplinePoly}.
 So that, it is fulfilled that 
 
 \begin{equation}
@@ -90,10 +92,10 @@ Additionally, we can define
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Boundary conditions in 3D parametric linear spline}\label{sec:boundarylinear}
+\subsection{Boundary conditions in 3D parametric linear spline}\label{sec:boundarylinear}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Conditions in points}
+\subsubsection{Conditions in points}
 
 Following the Fig. \ref{fig:3DLinearSplinePoly}, 
 we can affirm that for $0 \leq n\leq N-2$,
@@ -108,7 +110,8 @@ so that
 \in \mathbb{R}^{3},
 \end{equation}
 
-\subsubsection{Matricial form of the conditions in points}
+\textbf{Matricial form of the conditions in points:}
+
 Using 
 the Eq. \ref{eq:hatprimeder0} in 
 the Eqs. \ref{eq:hatcondition1} and \ref{eq:hatcondition2},
@@ -199,7 +202,7 @@ and
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Boundary conditions in internal point}
+\subsubsection{Boundary conditions in internal point}
 Following the Fig. \ref{fig:3DLinearSplinePoly}, 
 we can affirm that for $0 \leq n\leq N-3$,
 so that
@@ -210,7 +213,8 @@ so that
 \end{equation}
 
 
-\subsubsection{Matricial form of the boundary conditions in internal point equation's}
+\textbf{Matricial form of the boundary conditions in internal point equation's:}
+
 Using % 
 the Eq. \ref{eq:hatprimeder0} in 
 the Eq. \ref{eq:hatbound1},
@@ -272,12 +276,12 @@ in the boundary conditions in internal point equation's, we obtain
 =\mathbf{0}\in \mathbb{R}^{3(N-2)}
 \end{equation}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Parameter calculus of 3D parametric linear spline}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Parameter calculus of 3D parametric linear spline}
 \label{sec:solvelinearspline}
-Following the explained in the Section \ref{sec:boundarylinear},
-the equation that should be fulfilled to fit the linear spline in the points can be represented in the next equation
+Following the explanation in the Section \ref{sec:boundarylinear},
+the equation that should be fulfilled to fit the linear spline in the points can be represented in the next equation.
 
 \begin{equation}
 \begin{bmatrix}

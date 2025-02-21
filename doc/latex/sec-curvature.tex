@@ -1,25 +1,10 @@
-\section{Curvature of a 3D parametric cubic spline}
+\subsection{Square curvature of a 3D parametric cubic spline}
 \label{sec:curvaturemain}
-The curvature $\mathcal{K}_{(n)}(t)$ of a 3D parametric function, 
-$\mathbf{p}^{(n)}(t)\in \mathbb{R}^{3}$ with parameter $t$, 
-can be calculated 
-\cite[pp. 21]{toponogov2006differential} 
-using the next equation,
 
-\begin{equation}
-\mathcal{K}_{(n)}(t)
-=
-\frac{\left\|\frac{\partial \mathbf{p}^{(n)}(t)}{\partial t} \times \frac{\partial^2 \mathbf{p}^{(n)}(t)}{\partial t^2} \right\|}
-{\left\|\frac{\partial \mathbf{p}^{(n)}(t)}{\partial t}\right\|^{3}}
-\equiv
-\frac{\left\|{\mathbf{p}^{(n)}}'(t) \times {\mathbf{p}^{(n)}}''(t) \right\|}
-{\left\|{\mathbf{p}^{(n)}}'(t)\right\|^{3}}
-\end{equation}
-
-
-if we calculate the square curvature $\mathcal{K}_{(n)}^{2}(t)$ to the cases when $t\equiv n$ and $t\equiv n+1$,
+Following the Eq. (\ref{eq:curvaturekn}), 
+if we calculate the square curvature $\mathcal{K}_{(n)}^{2}(t)$ for the cases when $t\equiv n$ and $t\equiv n+1$,
 then we obtain
-\begin{equation}
+\begin{equation}\label{eq:curvature:K2nn}
 \mathcal{K}_{(n)}^{2}(n)
 =
 \frac{\left\|
@@ -30,7 +15,7 @@ then we obtain
 {\left\| \mathbf{Q}^{(1,1)} \mathbf{w}^{(n)} \right\|^{6}}
 \end{equation}
 
-\begin{equation}
+\begin{equation}\label{eq:curvature:K2nn1}
 \mathcal{K}_{(n)}^{2}(n+1)
 =
 \frac{\left\|
@@ -42,63 +27,7 @@ then we obtain
 \end{equation}
 
 
-or rewritten in a simplified form to minimize the indices
-
-\begin{equation}\label{eq:K2simple}
-\mathcal{K}^{2}(\mathbf{\bar{w}})
-=
-\frac{
-\left\|
-\mathbf{\bar{b}} 
-\times 
-\mathbf{\bar{c}}
-\right\|^{2}
-}
-{\left\| \mathbf{\bar{b}} \right\|^{6}}.
-\end{equation}
-
-
-
-Knowing that $\left\|
-\mathbf{\bar{b}} 
-\times 
-\mathbf{\bar{c}}
-\right\|^{2}$ 
-represents the square area of parallelepid form by the vectors 
-$\mathbf{\bar{b}}$ and $\mathbf{\bar{c}}$,
-then
-$\left\|
-\mathbf{\bar{b}} 
-\times 
-\mathbf{\bar{c}}
-\right\|^{2}
-=
-\left(
-\left\|
-\mathbf{\bar{b}}
-\right\|
-sin(\theta) 
-\left\|
-\mathbf{\bar{c}}
-\right\|
-\right)^{2}
-=
-\left\|
-\mathbf{\bar{b}}
-\right\|^{2}
-\left\|
-\mathbf{\bar{c}}
-\right\|^{2}
--
-\left\|
-\mathbf{\bar{b}}
-\right\|^{2}
-\left\|
-\mathbf{\bar{c}}
-\right\|^{2}
-cos(\theta)^{2}.
-$ 
-Thus, the Eq. \ref{eq:K2simple} can be written as 
+or rewritten in a simplified form to minimize the indices using the Eq. (\ref{eq:propcross})
 
 \begin{equation}
 \mathcal{K}^{2}(\mathbf{\bar{w}})
@@ -116,10 +45,10 @@ Thus, the Eq. \ref{eq:K2simple} can be written as
 \mathbf{\bar{c}}
 \right)^{2}
 }
-{\left\| \mathbf{\bar{b}} \right\|^{6}}
+{\left\| \mathbf{\bar{b}} \right\|^{6}},
 \end{equation}
-
-derivating in function of vector $\mathbf{w}$
+where $\mathbf{\bar{b}} \equiv \mathbf{Q}^{(1,0)} \mathbf{w}^{(n)}$ and $\mathbf{\bar{c}} \equiv \mathbf{Q}^{(2,0)} \mathbf{w}^{(n)}$.
+Derivating $\mathcal{K}^{2}(\mathbf{\bar{w}})$ in relation to vector $\mathbf{w}$
 
 \begin{equation}
 \frac{

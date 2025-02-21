@@ -1,8 +1,9 @@
-\section{Derivative}
+\section{Derivatives}
 
+This section presents various derivatives that are integral to the methodology of this research.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Derivative of $\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)$}
+\subsection{Derivative of $\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)$ with respect to the scalar parameter $t$}
 
 Given 
 a matrix $\mathbf{A} \in \mathbb{R}^{M\times N}$,
@@ -33,7 +34,7 @@ a function $f:\mathbb{R}^{M} \to \mathbb{R}$
 a vector $\mathbf{v} \in \mathbb{R}^{M}$ 
 and 
 the variable $t \in \mathbb{R}$,
-we now that
+we know that
 
 \begin{equation}
 \frac{\partial f\left(\mathbf{v}\right)}{\partial t} = 
@@ -132,10 +133,10 @@ Appplying in the Eq. \ref{eq:fAwc}, we obtain
 \mathbf{A}\frac{\partial \mathbf{w}}{\partial t}
 \end{equation}
 
-where $\nabla \mathbf{f}(\mathbf{v})$ is the jacobian matrix of $\mathbf{f}(\mathbf{v})$. 
+where $\nabla \mathbf{f}(\mathbf{v})$ is the Jacobian matrix of $\mathbf{f}(\mathbf{v})$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Derivative of $\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$}
+\subsection{Derivative of $\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$ with respect to the scalar parameter $t$}
 
 Given a diagonal matrix $\mathbf{Q} \in \mathbb{R}^{L\times L}$,
 a matrix $\mathbf{A} \in \mathbb{R}^{M\times N}$,
@@ -148,7 +149,7 @@ E&=\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathb
 ~&=\mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)
 \end{align}
 
-If we define $\mathbf{A}$, $\mathbf{Q}$, $\mathbf{c}$ and $\mathbf{f}$ not depend on the variable $t$.
+If we define $\mathbf{A}$, $\mathbf{Q}$, $\mathbf{c}$, and $\mathbf{f}$ not to depend on the variable $t$.
 
 \begin{align}
 \frac{\partial E}{\partial t}
@@ -181,7 +182,7 @@ Applying the Eq. \ref{eq:DfAwc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Derivative of $\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$
-in relation to $\mathbf{w}$}
+with respect to the vector $\mathbf{w}$}
 
 Given the expression $E=\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$,
 where
@@ -189,7 +190,7 @@ the matrix $\mathbf{A} \in \mathbb{R}^{M\times N}$,
 the vector $\mathbf{w} \in \mathbb{R}^{N}$,
 the vector $\mathbf{c} \in \mathbb{R}^{M}$ and 
 the vectorial function $\mathbf{f}:\mathbb{R}^{M} \to \mathbb{R}^{L}$.
-If we define $\mathbf{A}$, $\mathbf{Q}$, $\mathbf{c}$ and $\mathbf{f}$ not depend of vector $\mathbf{w}$. 
+If we define $\mathbf{A}$, $\mathbf{Q}$, $\mathbf{c}$ and $\mathbf{f}$ not depend on vector $\mathbf{w}$. 
 Then 
 
 \begin{align}
@@ -261,7 +262,7 @@ Using the Eq. \ref{eq:dEdt}
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Derivative for a specific type of function $\mathbf{f}(\mathbf{v})$}
+\subsection{Derivative for a specific type of vector function $\mathbf{f}(\mathbf{v})$ with respect to the vector $\mathbf{v}$}
 
 Given 
 a vector $\mathbf{v} \in \mathbb{R}^{M}$ and 

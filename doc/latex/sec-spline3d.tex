@@ -1,7 +1,9 @@
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{3D parametric cubic spline }
-A 3D parametric cubic spline is a parametric function defined piecewise by parametric polynomials in $\mathbb{R}^{3}$ space.
+A 3D parametric cubic spline $\mathbf{\bar{p}}: [0,N-1] \subseteq \mathbb{R} \to \mathbb{R}^3$ is a parametric function defined piecewise by parametric polynomials in $\mathbb{R}^{3}$ space where $t_{n}\equiv n$,
+see Section \ref{sec:curvePiecewise}.
 The Fig. \ref{fig:3DSplinePoly} shows the polynomials $\mathbf{p}^{(n)}(t)$ with parameter $t$ 
 close to the n-th position.
 \begin{figure}[H]
@@ -13,7 +15,7 @@ close to the n-th position.
 
 Given a set of $N$ points $\mathbf{r}^{(n)}\in\mathbb{R}^{3}$, $\forall$ $0\leq n \leq N-1$, 
 we can generate a cubic spline with $N-2$ polynomials $\mathbf{p}^{(n)}(t)$, $\forall$ $0\leq n \leq N-2$, 
-according the Fig. \ref{fig:3DSplinePoly}.
+according to Fig. \ref{fig:3DSplinePoly}.
 So that, it is fulfilled that 
 
 \begin{equation}
@@ -72,7 +74,7 @@ a_{z}^{(n)} & b_{z}^{(n)} & c_{z}^{(n)} & d_{z}^{(n)}
 
 Additionally, we can define
 
-\begin{equation}
+\begin{equation}\label{eq:wvector}
 \mathbf{w}
 \equiv
 \begin{bmatrix}
@@ -86,7 +88,7 @@ Additionally, we can define
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Additional useful derivation of $\mathbf{p}^{(n)}(t)$}
+\subsection{Derivative of $\mathbf{p}^{(n)}(t)$ with respect to escalar $t$}
 
 \small
 \begin{equation}\label{eq:primeder1}
@@ -161,40 +163,39 @@ D_{t}^{2}\mathbf{A}^{(n)}(t) \mathbf{w}^{(n)}\\
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conditions in 3D parametric cubic spline}\label{sec:boundarycubic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Boundary conditions in 3D parametric cubic spline}\label{sec:boundarycubic}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Conditions in points}
+\subsubsection{Boundary conditions in points}
 
 Following the Fig. \ref{fig:3DSplinePoly}, 
 we can affirm that for $0 \leq n\leq N-2$,
 so that
 \begin{equation}\label{eq:condition1}
-\mathbf{p}^{(n)}(n)=\mathbf{r}^{(n)}
+\mathbf{p}^{(n)}(n)\approx \mathbf{r}^{(n)}
 \in \mathbb{R}^{3},
 \end{equation}
 
 \begin{equation}\label{eq:condition2}
-\mathbf{p}^{(N-2)}(N-1)=\mathbf{r}^{(N-1)}
+\mathbf{p}^{(N-2)}(N-1)\approx \mathbf{r}^{(N-1)}
 \in \mathbb{R}^{3},
 \end{equation}
 
-\subsubsection{Matricial form of the conditions in points}
+\subsubsection{Matricial form of the boundary conditions in points}
 Using 
 the Eq. \ref{eq:primeder0} in 
 the Eqs. \ref{eq:condition1} and \ref{eq:condition2},
 we obtain for $0 \leq n\leq N-2$
 
 \begin{equation}\label{eq:pointcond1}
-\mathbf{A}^{(n)}(n) \mathbf{w}^{(n)}=\mathbf{r}^{(n)}
+\mathbf{A}^{(n)}(n) \mathbf{w}^{(n)}\approx \mathbf{r}^{(n)}
 \in \mathbb{R}^{3},
 \end{equation}
 
 \begin{equation}\label{eq:pointcond2}
-\mathbf{A}^{(N-2)}(N-1) \mathbf{w}^{(N-2)}=\mathbf{r}^{(N-1)}
+\mathbf{A}^{(N-2)}(N-1) \mathbf{w}^{(N-2)}\approx \mathbf{r}^{(N-1)}
 \in \mathbb{R}^{3},
 \end{equation}
 
@@ -252,11 +253,11 @@ We can write the Eqs. \ref{eq:condition1} and \ref{eq:condition2} as
 \begin{equation}
 \mathbf{P}
 \mathbf{w}
-=\mathbf{r}\in \mathbb{R}^{3N}.
+\approx \mathbf{r}\in \mathbb{R}^{3N}.
 \end{equation}
 
 Where
-\begin{equation}
+\begin{equation}\label{eq:Pmat}
 \mathbf{P}
 \equiv
 \begin{bmatrix}
@@ -272,7 +273,7 @@ Where
 
 and
 
-\begin{equation}
+\begin{equation}\label{eq:rvec}
 \mathbf{r}
 \equiv
 \begin{bmatrix}
@@ -287,13 +288,13 @@ and
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Boundary conditions in internal point}
+\subsubsection{Continuity conditions in internal point}
 Following the Fig. \ref{fig:3DSplinePoly}, 
 we can affirm that for $0 \leq n\leq N-3$,
 so that
 \begin{equation}\label{eq:bound1}
 \mathbf{p}^{(n)}(n+1)-\mathbf{p}^{n+1}(n+1)
-=
+\approx
 \mathbf{0}\in \mathbb{R}^{3},
 \end{equation}
 
@@ -301,24 +302,25 @@ so that
 \left.\frac{\partial\mathbf{p}^{(n)}(t)}{\partial t}\right|_{t=n+1}
 -
 \left.\frac{\partial\mathbf{p}^{n+1}(t)}{\partial t}\right|_{t=n+1}
-=\mathbf{0}\in \mathbb{R}^{3},
+\approx\mathbf{0}\in \mathbb{R}^{3},
 \end{equation}
 
 \begin{equation}\label{eq:bound3}
 \left.\frac{\partial^{2}\mathbf{p}^{(n)}(t)}{\partial t^{2}}\right|_{t=n+1}
 -
 \left.\frac{\partial^{2}\mathbf{p}^{n+1}(t)}{\partial t^{2}}\right|_{t=n+1}
-=\mathbf{0}\in \mathbb{R}^{3}.
+\approx\mathbf{0}\in \mathbb{R}^{3}.
 \end{equation}
 
-\subsubsection{Matricial form of the boundary conditions in internal point equation's}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Matricial form of the continuity conditions in internal point equation's}
 Using % 
 the Eqs. \ref{eq:primeder0}, \ref{eq:primeder1}, \ref{eq:primeder2}, \ref{eq:primeder3a} and \ref{eq:primeder3b} in 
 the Eqs. \ref{eq:bound1}, \ref{eq:bound2} and \ref{eq:bound3},
 we obtain for $0 \leq n\leq N-3$
 \begin{equation}
  \mathbf{A}^{(n)}(n+1) \mathbf{w}^{(n)} - \mathbf{A}^{(n+1)}(n+1) \mathbf{w}^{(n+1)} 
- =
+ \approx
  \mathbf{0} \in \mathbb{R}^{3},
 \end{equation}
 
@@ -328,7 +330,7 @@ D_{t}\mathbf{A}^{(n)}(n+1)
 -
 D_{t}\mathbf{A}^{(n+1)}(n+1)
 \mathbf{w}^{(n+1)}
-=\mathbf{0}\in \mathbb{R}^{3},
+\approx\mathbf{0}\in \mathbb{R}^{3},
 \end{equation}
 
 
@@ -353,7 +355,7 @@ D_{t}^{2}\mathbf{A}^{(n)}(n+1) & -D_{t}^{2}\mathbf{A}^{(n+1)}(n+1)
 \mathbf{w}^{(n)}\\
 \mathbf{w}^{(n+1)}
 \end{bmatrix}
-=\mathbf{0}\in \mathbb{R}^{9},
+\approx\mathbf{0}\in \mathbb{R}^{9},
 \end{equation}
 
 
@@ -451,14 +453,14 @@ these can be rewritten for $0 \leq n\leq N-3$
 \mathbf{w}^{(n)}\\
 \mathbf{w}^{(n+1)}
 \end{bmatrix}
-=\mathbf{0}\in \mathbb{R}^{9}
+\approx\mathbf{0}\in \mathbb{R}^{9}
 \end{equation}
 
 Finally, 
 concatenating to all values for $0 \leq n\leq N-3$
 in the boundary conditions in internal point equation's, we obtain
 
-\begin{equation}
+\begin{equation}\label{eq:Qmat}
 \mathbf{Q}
 \equiv
 \begin{bmatrix}
@@ -479,7 +481,7 @@ in the boundary conditions in internal point equation's, we obtain
 \begin{equation}
 \mathbf{Q}
 \mathbf{w}
-=\mathbf{0}\in \mathbb{R}^{9(N-2)}
+\approx\mathbf{0}\in \mathbb{R}^{9(N-2)}
 \end{equation}
 
 
@@ -489,12 +491,12 @@ in the boundary conditions in internal point equation's, we obtain
 \input{sec-curvature}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Cost function in 3D parametric cubic spline}
+\subsection{Cost function in 3D parametric cubic spline}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Cost function of fitting the cubic spline in the points $\mathbf{r}^{(n)}$}
+\subsubsection{Cost function of fitting the cubic spline in the points $\mathbf{r}^{(n)}$}
 
-Following the explained in the Section \ref{sec:boundarycubic},
+Following the explanation in the Section \ref{sec:boundarycubic},
 the equation that should be fulfilled to fit the cubic spline in the points can be represented in the next equation
 
 \begin{equation}
@@ -503,7 +505,7 @@ the equation that should be fulfilled to fit the cubic spline in the points can 
 \mathbf{Q}
 \end{bmatrix}
 \mathbf{w}
-=
+\approx
 \begin{bmatrix}
 \mathbf{r}\\
 \mathbf{0}
@@ -534,7 +536,7 @@ where $\mathbf{D}\in \mathbb{R}^{(12N-18)\times(12N-18)}$ is a diagonal matrix w
 and $\left\|\mathbf{a}\right\|_{\mathbf{D}}^{2}\equiv \mathbf{a}^{T}\mathbf{D}\mathbf{a}$.
 
 
-Applying the derivative in relation of vector $\mathbf{w}$
+Applying the derivative in relation to vector $\mathbf{w}$
 \cite[pp. 11]{petersen2008matrix}
 in the cost function $E_{1}(\mathbf{w})$ of Eq. \ref{eq:costfunc1}, 
 we obtain
@@ -563,10 +565,13 @@ we obtain
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Cost function of curvature the cubic spline in the points $\mathbf{r}^{(n)}$}
+\subsubsection{Cost function of curvature the cubic spline in the points $\mathbf{r}^{(n)}$}
 
-Following the explained in the Section \ref{sec:curvaturemain},
+Following the explanation in the Section \ref{sec:curvaturemain},
 the equation relative to the curvature that should be minimized can be represented in the next equation
+
+
+
 
 \begin{equation}
 E_{2}
@@ -648,15 +653,56 @@ Derivating in function of $\mathbf{w}$
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Parameter calculus of 3D parametric cubic spline}
-\label{sec:solvecubicspline}
+\subsubsection{Total cost function of 3D parametric cubic spline}
+\label{sec:TotalCostFunc}
 
-Defining the cost function $E(\mathbf{w})$ as
+Defining the total cost function $E(\mathbf{w})$ as
 
 \begin{equation}
 E(\mathbf{w})=E_{1}(\mathbf{w})+\beta E_{2}(\mathbf{w})
 \end{equation}
 
+\begin{equation}
+E(\mathbf{w})
+=
+\left\|
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}
+\mathbf{w}
+-
+\begin{bmatrix}
+\mathbf{r}\\
+\mathbf{0}
+\end{bmatrix}
+\right\|_{\mathbf{D}}^{2}
++\beta 
+\left[
+\frac{1}{2(N-1)}
+\sum\limits_{n=0}^{N-2}
+\left\{
+\mathcal{K}_{(n)}^{2}(n)
++
+\mathcal{K}_{(n)}^{2}(n+1)
+\right\}
+\right].
+\end{equation}
+
+where 
+\begin{itemize}
+\item the constant matrix $\mathbf{P}$ is defined in Eq. (\ref{eq:Pmat}),
+\item the constant matrix $\mathbf{Q}$ is defined in Eq. (\ref{eq:Qmat}),
+\item the diagonal matrix $\mathbf{D}$ contains hyperparameters that assign weights to boundary and continuity conditions,
+\item the constant vector $\mathbf{r}$ is an input position data described in Eq. (\ref{eq:rvec}),
+\item the vector $\mathbf{w}$ has the parameters of spline as described in Eq. (\ref{eq:wvector}),
+\item the scalar $\beta$ serves as a hyperparameter to balance the significance of $E_{2}(\mathbf{w})$ relative to $E_{1}(\mathbf{w})$,
+\item the scalar $\mathcal{K}_{(n)}^{2}(n)$ is determined using Eq. (\ref{eq:curvature:K2nn}) and 
+\item the scalar $\mathcal{K}_{(n)}^{2}(n+1)$ is determined using Eq. (\ref{eq:curvature:K2nn1}).
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Parameter calculus of 3D parametric cubic spline}
+\label{sec:solvecubicspline}
 Using the gradient descent technique, we obtain
 
 \begin{equation}
@@ -759,9 +805,9 @@ Applying the Eqs. \ref{eq:DE1}, \ref{eq:DE2} we obtain
 \end{equation}
 
 where $\alpha$ and $\beta$ are learning hyper-parameters and 
-$\mathbf{w}_{0}$ 
-will be calculated following the calculus of 3D parametric linear spline
-seen in the Section \ref{sec:solvelinearspline}.
-The iteration follow until a maximum number of iteration $i$ or until reach a
+$\mathbf{w}_{0}$ can be a random vector or can
+be calculated following a 3D parametric linear spline,
+see Section \ref{sec:solvelinearspline}.
+The iteration follows until a maximum number of iterations $i$ or until it reaches a
 minimum defined error $E_1(\mathbf{w}_{i})$. 
 
