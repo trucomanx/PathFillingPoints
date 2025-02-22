@@ -185,6 +185,10 @@ so that
 \in \mathbb{R}^{3},
 \end{equation}
 
+\textcolor{red}{Referring to Eq. (\ref{eq:condition2}), 
+we specifically focused on analyzing the initial boundary of each polynomial. 
+This approach was adopted because the continuity between consecutive polynomials is thoroughly examined in the boundary continuity section, rendering further analysis redundant.}
+
 \subsubsection{Matricial form of the boundary conditions in points}
 Using 
 the Eq. \ref{eq:primeder0} in 
@@ -490,7 +494,153 @@ in the boundary conditions in internal point equation's, we obtain
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{sec-curvature}
+\subsection{Square curvature of a 3D parametric cubic spline}
+\label{sec:curvaturemain}
+We know by the Eq. (\ref{eq:curvaturekn}) that
+
+\begin{equation}
+\mathcal{K}_{(n)}(t)
+=
+\frac{\left\|{\mathbf{p}^{(n)}}'(t) \times {\mathbf{p}^{(n)}}''(t) \right\|}
+{\left\|{\mathbf{p}^{(n)}}'(t)\right\|^{3}}
+\end{equation}
+
+If we calculate the square curvature $\mathcal{K}_{(n)}^{2}(t)$ for the boundary cases of the curve $\mathbf{p}^{(n)}(t)$, 
+when $t\equiv n$ and $t\equiv n+1$,
+then we obtain $\mathcal{K}_{(n)}^{2}(n)$ and $\mathcal{K}_{(n)}^{2}(n+1)$, respectively
+\begin{equation}\label{eq:curvature:K2nn}
+\mathcal{K}_{(n)}^{2}(n)
+=
+\frac{\left\|
+\left( \mathbf{Q}^{(1,1)} \mathbf{w}^{(n)} \right)
+\times 
+\left( \mathbf{Q}^{(2,1)} \mathbf{w}^{(n)} \right)
+\right\|^{2}}
+{\left\| \mathbf{Q}^{(1,1)} \mathbf{w}^{(n)} \right\|^{6}}
+\end{equation}
+
+\begin{equation}\label{eq:curvature:K2nn1}
+\mathcal{K}_{(n)}^{2}(n+1)
+=
+\frac{\left\|
+\left( \mathbf{Q}^{(1,0)} \mathbf{w}^{(n)} \right)
+\times 
+\left( \mathbf{Q}^{(2,0)} \mathbf{w}^{(n)} \right)
+\right\|^{2}}
+{\left\| \mathbf{Q}^{(1,0)} \mathbf{w}^{(n)} \right\|^{6}}
+\end{equation}
+
+
+If we use the Eq. (\ref{eq:cuvaturepartial}) to differentiate the Eqs. (\ref{eq:curvature:K2nn}) and (\ref{eq:curvature:K2nn1})
+with respect to $\mathbf{w}^{(n)}$, 
+we obtain the Eqs. (\ref{eq:curvature:der:K2nn}) and (\ref{eq:curvature:der:K2nn1}), respectively.
+
+\begin{equation}\label{eq:curvature:der:K2nn}
+\begin{split}
+\frac{
+\partial 
+\mathcal{K}_{(n)}^{2}(n)
+}
+{
+\partial \mathbf{w}^{(n)}
+}
+& = 
+2
+\frac{
+\left\|{\mathbf{p}^{(n)}}''(n)\right\|^2
+\mathbf{Q}^{(1,1)T} {\mathbf{p}^{(n)}}'(n)
++
+\left\|{\mathbf{p}^{(n)}}'(n)\right\|^2
+\mathbf{Q}^{(2,1)T} {\mathbf{p}^{(n)}}''(n)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n) \right\|^{6}}\\[10pt]
+& - 
+2
+\frac
+{
+\left(
+{{\mathbf{p}^{(n)}}'(n)}^{T}
+{\mathbf{p}^{(n)}}''(n)
+\right)
+\left(
+\mathbf{Q}^{(1,1)T}{\mathbf{p}^{(n)}}''(n)
++
+\mathbf{Q}^{(2,1)T}{\mathbf{p}^{(n)}}'(n)
+\right)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n) \right\|^{6}}\\[10pt]
+& - 
+6
+\frac
+{
+\mathcal{K}_{(n)}^{2}(n)
+\mathbf{Q}^{(1,1)T}{\mathbf{p}^{(n)}}'(n)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n) \right\|^{2}}
+\end{split}
+\end{equation}
+
+and
+
+\begin{equation}\label{eq:curvature:der:K2nn1}
+\begin{split}
+\frac{
+\partial 
+\mathcal{K}_{(n)}^{2}(n+1)
+}
+{
+\partial \mathbf{w}^{(n)}
+}
+& = 
+2
+\frac{
+\left\|{\mathbf{p}^{(n)}}''(n+1)\right\|^2
+\mathbf{Q}^{(1,0)T} {\mathbf{p}^{(n)}}'(n+1)
++
+\left\|{\mathbf{p}^{(n)}}'(n+1)\right\|^2
+\mathbf{Q}^{(2,0)T} {\mathbf{p}^{(n)}}''(n+1)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n+1) \right\|^{6}}\\[10pt]
+& - 
+2
+\frac
+{
+\left(
+{{\mathbf{p}^{(n)}}'(n+1)}^{T}
+{\mathbf{p}^{(n)}}''(n+1)
+\right)
+\left(
+\mathbf{Q}^{(1,0)T}{\mathbf{p}^{(n)}}''(n+1)
++
+\mathbf{Q}^{(2,0)T}{\mathbf{p}^{(n)}}'(n+1)
+\right)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n+1) \right\|^{6}}\\[10pt]
+& - 
+6
+\frac
+{
+\mathcal{K}_{(n)}^{2}(n+1)
+\mathbf{Q}^{(1,0)T}{\mathbf{p}^{(n)}}'(n+1)
+}
+{\left\| {\mathbf{p}^{(n)}}'(n+1) \right\|^{2}}
+\end{split}
+\end{equation}
+
+\begin{comment}
+Finally
+
+\begin{equation}
+\frac{
+\partial 
+\mathcal{K}_{(n)}^{2}(n+1)
+}
+{
+\partial \mathbf{w}^{(n)}
+}
+\end{equation}
+\end{comment}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cost function in 3D parametric cubic spline}
@@ -536,6 +686,22 @@ E_{1}(\mathbf{w})
 \end{equation}
 where $\mathbf{D}\in \mathbb{R}^{(12N-18)\times(12N-18)}$ is a diagonal matrix with the weight of elements of Eq. (\ref{eq:costfunc1}), 
 $\left\|\mathbf{a}\right\|_{\mathbf{D}}^{2}\equiv \mathbf{a}^{T}\mathbf{D}\mathbf{a}$.
+
+\begin{equation}
+\mathbf{D} 
+= 
+diag(
+\begin{bmatrix}
+\mathbf{d}_{\mathbf{r}}\\
+\mathbf{d}_{\mathbf{c}}
+\end{bmatrix}
+)
+\end{equation}
+where
+\begin{itemize}
+\item Weight of boundary conditions $\mathbf{d}_{\mathbf{r}} \in \mathbb{R}^{3N}$.
+\item Weight of continuity conditions$\mathbf{d}_{\mathbf{c}} \in \mathbb{R}^{9(N-2)}$.
+\end{itemize}
 
 
 Applying the derivative in relation to vector $\mathbf{w}$
