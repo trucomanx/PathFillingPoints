@@ -50,7 +50,8 @@ a_{z}^{(n)} & b_{z}^{(n)} & c_{z}^{(n)} & d_{z}^{(n)}
 \end{equation}
 \small
 \begin{equation}\label{eq:Ant}
-\mathbf{A}^{(n)}(t)=
+\mathbf{A}^{(n)}(t)
+=
 \left[
 \begin{array}{cccc:cccc:cccc}
 1 & (t-n) & (t-n)^{2} & (t-n)^{3} &
@@ -69,9 +70,10 @@ a_{z}^{(n)} & b_{z}^{(n)} & c_{z}^{(n)} & d_{z}^{(n)}
 
 \begin{equation}\label{eq:primeder0}
 \mathbf{p}^{(n)}(t)=
-\mathbf{A}^{(n)}(t) \mathbf{w}^{(n)}.
+\mathbf{A}^{(n)}(t) \mathbf{w}^{(n)},
 \end{equation}
 
+Where, $\mathbf{A}^{(n)}(t) \in \mathbb{R}^{3 \times 12}$ and $\mathbf{w}^{(n)} \in \mathbb{R}^{12}$.
 Additionally, we can define
 
 \begin{equation}\label{eq:wvector}
@@ -494,7 +496,7 @@ in the boundary conditions in internal point equation's, we obtain
 \subsection{Cost function in 3D parametric cubic spline}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Cost function of fitting the cubic spline in the points $\mathbf{r}^{(n)}$}
+\subsubsection{Cost function $E_{1}(\mathbf{w})$ of fitting the cubic spline in the points $\mathbf{r}^{(n)}$}
 
 Following the explanation in the Section \ref{sec:boundarycubic},
 the equation that should be fulfilled to fit the cubic spline in the points can be represented in the next equation
@@ -532,8 +534,8 @@ E_{1}(\mathbf{w})
 \end{bmatrix}
 \right\|_{\mathbf{D}}^{2}
 \end{equation}
-where $\mathbf{D}\in \mathbb{R}^{(12N-18)\times(12N-18)}$ is a diagonal matrix with the weight of each line equation
-and $\left\|\mathbf{a}\right\|_{\mathbf{D}}^{2}\equiv \mathbf{a}^{T}\mathbf{D}\mathbf{a}$.
+where $\mathbf{D}\in \mathbb{R}^{(12N-18)\times(12N-18)}$ is a diagonal matrix with the weight of elements of Eq. (\ref{eq:costfunc1}), 
+$\left\|\mathbf{a}\right\|_{\mathbf{D}}^{2}\equiv \mathbf{a}^{T}\mathbf{D}\mathbf{a}$.
 
 
 Applying the derivative in relation to vector $\mathbf{w}$
@@ -565,7 +567,7 @@ we obtain
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Cost function of curvature the cubic spline in the points $\mathbf{r}^{(n)}$}
+\subsubsection{Cost function $E_{2}(\mathbf{w})$ of curvature the cubic spline in the points $\mathbf{r}^{(n)}$}
 
 Following the explanation in the Section \ref{sec:curvaturemain},
 the equation relative to the curvature that should be minimized can be represented in the next equation
@@ -574,7 +576,7 @@ the equation relative to the curvature that should be minimized can be represent
 
 
 \begin{equation}
-E_{2}
+E_{2}(\mathbf{w})
 =
 \frac{1}{2(N-1)}
 \sum\limits_{n=0}^{N-2}
@@ -588,7 +590,7 @@ E_{2}
 Derivating in function of $\mathbf{w}$
 
 \begin{equation}
-\frac{\partial E_{2}}{\partial \mathbf{w}^{(n)}}
+\frac{\partial E_{2}(\mathbf{w})}{\partial \mathbf{w}^{(n)}}
 =
 \frac{1}{2(N-1)}
 \left\{
@@ -605,13 +607,13 @@ Derivating in function of $\mathbf{w}$
 \end{equation}
 
 \begin{equation}\label{eq:DE2}
-\frac{\partial E_{2}}{\partial \mathbf{w}}
+\frac{\partial E_{2}(\mathbf{w})}{\partial \mathbf{w}}
 =
 \begin{bmatrix}
-\frac{\partial E_{2}}{\partial \mathbf{w}^{(0)}}\\[4pt]
-\frac{\partial E_{2}}{\partial \mathbf{w}^{(1)}}\\[4pt]
+\frac{\partial E_{2}(\mathbf{w})}{\partial \mathbf{w}^{(0)}}\\[4pt]
+\frac{\partial E_{2}(\mathbf{w})}{\partial \mathbf{w}^{(1)}}\\[4pt]
 \vdots\\[4pt]
-\frac{\partial E_{2}}{\partial \mathbf{w}^{(N-2)}}
+\frac{\partial E_{2}(\mathbf{w})}{\partial \mathbf{w}^{(N-2)}}
 \end{bmatrix}
 =
 \frac{1}{2(N-1)}
@@ -691,11 +693,11 @@ E(\mathbf{w})
 
 where 
 \begin{itemize}
-\item the constant matrix $\mathbf{P}$ is defined in Eq. (\ref{eq:Pmat}),
-\item the constant matrix $\mathbf{Q}$ is defined in Eq. (\ref{eq:Qmat}),
-\item the diagonal matrix $\mathbf{D}$ contains hyperparameters that assign weights to boundary and continuity conditions,
-\item the constant vector $\mathbf{r}$ is an input position data described in Eq. (\ref{eq:rvec}),
-\item the vector $\mathbf{w}$ has the parameters of spline as described in Eq. (\ref{eq:wvector}),
+\item the constant matrix $\mathbf{P} \in \mathbb{R}^{3N\times 12(N-1)}$ is defined in Eq. (\ref{eq:Pmat}),
+\item the constant matrix $\mathbf{Q} \in \mathbb{R}^{9(N-2)\times 12(N-1)}$ is defined in Eq. (\ref{eq:Qmat}),
+\item the diagonal matrix $\mathbf{D} \in \mathbb{R}^{(12N-18)\times (12N-18)}$ contains hyperparameters that assign weights to boundary and continuity conditions,
+\item the constant vector $\mathbf{r} \in \mathbb{R}^{3N}$ is an input position data described in Eq. (\ref{eq:rvec}),
+\item the vector $\mathbf{w} \in \mathbb{R}^{12(N-1)}$ has the parameters of spline as described in Eq. (\ref{eq:wvector}),
 \item the scalar $\beta$ serves as a hyperparameter to balance the significance of $E_{2}(\mathbf{w})$ relative to $E_{1}(\mathbf{w})$,
 \item the scalar $\mathcal{K}_{(n)}^{2}(n)$ is determined using Eq. (\ref{eq:curvature:K2nn}) and 
 \item the scalar $\mathcal{K}_{(n)}^{2}(n+1)$ is determined using Eq. (\ref{eq:curvature:K2nn1}).
