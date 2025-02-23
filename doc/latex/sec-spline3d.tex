@@ -697,10 +697,15 @@ diag(
 \end{bmatrix}
 )
 \end{equation}
-where
+being
 \begin{itemize}
-\item Weight of boundary conditions $\mathbf{d}_{\mathbf{r}} \in \mathbb{R}^{3N}$.
-\item Weight of continuity conditions$\mathbf{d}_{\mathbf{c}} \in \mathbb{R}^{9(N-2)}$.
+\item Weight of boundary conditions $\mathbf{d}_{\mathbf{r}} \in \mathbb{R}^{3N}$, 
+as demonstrated in example: $\mathbf{d}_{\mathbf{r}} \equiv \gamma_{\mathbf{r}} \mathbf{1}_{3N}$, where $\gamma_{\mathbf{r}}$ is a scalar selected by the researcher.
+\item Weight of continuity conditions $\mathbf{d}_{\mathbf{c}} \in \mathbb{R}^{9(N-2)}$,
+as demonstrated in example: 
+$\mathbf{d}_{\mathbf{c}} \equiv \begin{bmatrix}\gamma_{\mathbf{c0}} \mathbf{1}_{3}^{T} & \gamma_{\mathbf{c1}} \mathbf{1}_{3}^{T} & \gamma_{\mathbf{c2}} \mathbf{1}_{3}^{T} \end{bmatrix}^{T} * (N-2)$, 
+where $\gamma_{\mathbf{c0}}$, $\gamma_{\mathbf{c1}}$ and $\gamma_{\mathbf{c2}}$ are scalars selected by the researcher 
+to weighted the continuity conditions of order 0, 1 and 2.
 \end{itemize}
 
 
