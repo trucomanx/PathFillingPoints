@@ -737,6 +737,214 @@ we obtain
 \right)
 \end{equation}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Cost function $E_{3}(\mathbf{w})$ of fitting the cubic spline in the points $\mathbf{r}^{(n)}$ with a cube clearance}
+
+Following the explanation in the Section \ref{sec:boundarycubic},
+the equation that should be fulfilled to fit the cubic spline in the points can be represented in the next equation
+
+\begin{equation}
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}
+\mathbf{w}
+\approx
+\begin{bmatrix}
+\mathbf{r}\\
+\mathbf{0}
+\end{bmatrix}
+\in \mathbb{R}^{12(N-1)-6}
+\end{equation}
+
+Defining the cost function $E_{3}(\mathbf{w})$ of fitting a cubic spline to the points $\mathbf{r}^{(n)}$,
+$\forall 0\leq n\leq N-1$
+
+\begin{equation}\label{eq:costfunc1.3}
+E_{3}(\mathbf{w})
+=
+\left\|
+\mathbf{f}
+\left(
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}
+\mathbf{w}
+-
+\begin{bmatrix}
+\mathbf{r}\\
+\mathbf{0}
+\end{bmatrix}
+\right)
+\right\|_{\mathbf{D}}^{2}
+\end{equation}
+where $\mathbf{D}\in \mathbb{R}^{(12N-18)\times(12N-18)}$ is a diagonal matrix with the weight of elements of Eq. (\ref{eq:costfunc1}), 
+$\left\|\mathbf{a}\right\|_{\mathbf{D}}^{2}\equiv \mathbf{a}^{T}\mathbf{D}\mathbf{a}$.
+\begin{equation}
+\mathbf{D} 
+= 
+diag(
+\begin{bmatrix}
+\mathbf{d}_{\mathbf{r}}\\
+\mathbf{d}_{\mathbf{c}}
+\end{bmatrix}
+)
+\end{equation}
+being
+\begin{itemize}
+\item Weight of boundary conditions $\mathbf{d}_{\mathbf{r}} \in \mathbb{R}^{3N}$, 
+as demonstrated in example: $\mathbf{d}_{\mathbf{r}} \equiv \gamma_{\mathbf{r}} \mathbf{1}_{3N}$, where $\gamma_{\mathbf{r}}$ is a scalar selected by the researcher.
+\item Weight of continuity conditions $\mathbf{d}_{\mathbf{c}} \in \mathbb{R}^{9(N-2)}$,
+as demonstrated in example: 
+$\mathbf{d}_{\mathbf{c}} \equiv \begin{bmatrix}\gamma_{\mathbf{c0}} \mathbf{1}_{3}^{T} & \gamma_{\mathbf{c1}} \mathbf{1}_{3}^{T} & \gamma_{\mathbf{c2}} \mathbf{1}_{3}^{T} \end{bmatrix}^{T} * (N-2)$, 
+where $\gamma_{\mathbf{c0}}$, $\gamma_{\mathbf{c1}}$ and $\gamma_{\mathbf{c2}}$ are scalars selected by the researcher 
+to weighted the continuity conditions of order 0, 1 and 2.
+\end{itemize}
+
+Also a vectorial function $\mathbf{f}:\mathbb{R}^{12N-18} \to \mathbb{R}^{12N-18}$ with vector parameter 
+$\mathbf{v}\equiv \left[v_{1}, v_{2}, \dots,v_{m},\dots v_{12N-18}\right]^{T}$ is used.
+If we define 
+\begin{equation}\label{eq:vecfuncfv}
+\mathbf{f}(\mathbf{v}) 
+\equiv
+\begin{bmatrix}
+f_{1}(v_{1}) &
+f_{2}(v_{2}) &
+\dots&
+f_{M}(v_{12N-18}) &
+\end{bmatrix}^{T},
+\end{equation}
+where $f_{j}:\mathbb{R} \to \mathbb{R}$, $\forall 1 \leq j\leq 12N-18$.
+
+
+Applying the derivative in relation to vector $\mathbf{w}$, 
+like seen in the Section \ref{subsec:funcAwcQ2w},
+in the cost function $E_{3}(\mathbf{w})$ of Eq. \ref{eq:costfunc1.3}, 
+we obtain
+
+\begin{equation}\label{eq:DE1.3}
+\frac{\partial E_{3}(\mathbf{w})}{\partial \mathbf{w}}
+=
+2
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}^{T}
+\mathbf{J}
+\left(
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}
+\mathbf{w}
+-
+\begin{bmatrix}
+\mathbf{r}\\
+\mathbf{0}
+\end{bmatrix}
+\right)^{T}
+\mathbf{D}
+\mathbf{f}
+\left(
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}
+\mathbf{w}
+-
+\begin{bmatrix}
+\mathbf{r}\\
+\mathbf{0}
+\end{bmatrix}
+\right)
+\end{equation}
+
+Where $\mathbf{J}(\mathbf{v})$ is a Jacobian matrix of the function vector $\mathbf{f}(\mathbf{v})$,
+
+\begin{equation}
+\mathbf{J}(\mathbf{v})
+\equiv
+\begin{bmatrix}
+\frac{\partial f_{1}(v_{1})}{\partial v_{1}} & 0  & \dots & 0      & 0\\
+0  & \frac{\partial f_{2}(v_{2})}{\partial v_{2}} & \dots & 0      & 0\\
+\vdots                  & \vdots                  & \dots & \vdots & \vdots\\
+0                       & 0                       & \dots & \frac{\partial f_{M-1}(v_{M-1})}{\partial v_{M-1}} & 0\\
+0                       & 0                       & \dots & 0      & \frac{\partial f_{M}(v_{M})}{\partial v_{M}}
+\end{bmatrix},
+\end{equation}
+
+
+\begin{equation}
+f_{n}(v)=
+\left\{
+\begin{matrix}
+f(v) & if &  4 \leq n \leq 3(N-1) \\
+& &\\
+v & else &
+\end{matrix}
+\right.
+\end{equation}
+\begin{equation}
+f(v)=
+\left\{
+\begin{matrix}
+v-v_0 & if &  v \geq  v_0 \\
+& &\\
+v+v_0 & if &  v \leq -v_0 \\
+& &\\
+0 & else & 
+\end{matrix}
+\right.
+\end{equation}
+
+\begin{equation}
+\frac{\partial f(v)}{\partial v}=
+\left\{
+\begin{matrix}
+1 & if &  v \geq  v_0 \\
+& &\\
+1 & if &  v \leq -v_0 \\
+& &\\
+0 & else & 
+\end{matrix}
+\right.
+\end{equation}
+
+The Figure \ref{fig:funcfv} shows the $f(v)$ function.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+        axis lines=middle,
+        xlabel={$v$},
+        ylabel={$f(v)$},
+        samples=100,
+        ymin=-1.5, ymax=1.5,
+        xmin=-2.5, xmax=2.5,
+        xtick={-2,-1,1,2},
+        xticklabels={$-v_0-1$,$-v_0$, $v_0$, $v_0+1$},
+        ytick={-1,1},
+        legend pos=north west
+    ]
+        % Trecho para v >= v0 (v0 = 1)
+        \addplot[blue, thick, domain=1:2] {x - 1};
+
+        % Trecho para v <= -v0 (v0 = 1)
+        \addplot[blue, thick, domain=-2:-1] {x + 1};
+
+        % Trecho para -v0 < v < v0 (v0 = 1), f(v) = 0
+        \addplot[blue, thick, domain=-1:1] {0};
+
+        % Pontos de descontinuidade
+        \addplot[blue, only marks, mark=*, mark options={fill=white}] coordinates {(-1,0) (1,0)};
+    \end{axis}
+\end{tikzpicture}
+\caption{Function $f(v)$}
+\label{fig:funcfv}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Cost function $E_{2}(\mathbf{w})$ of curvature the cubic spline in the points $\mathbf{r}^{(n)}$}
 
@@ -831,7 +1039,7 @@ Derivating in function of $\mathbf{w}$
 
 Defining the total cost function $E(\mathbf{w})$ as
 
-\begin{equation}
+\begin{equation}\label{eq:BasicCost}
 E(\mathbf{w})=E_{1}(\mathbf{w})+\beta E_{2}(\mathbf{w})
 \end{equation}
 
@@ -873,10 +1081,66 @@ where
 \item the scalar $\mathcal{K}_{(n)}^{2}(n)$ is determined using Eq. (\ref{eq:curvature:K2nn}) and 
 \item the scalar $\mathcal{K}_{(n)}^{2}(n+1)$ is determined using Eq. (\ref{eq:curvature:K2nn1}).
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Total cost function of 3D parametric cubic spline with a cube clearance}
+\label{sec:TotalCostFuncCube}
+
+Defining the total cost function $E(\mathbf{w})$ as
+
+\begin{equation}\label{eq:BasicCostCube}
+E(\mathbf{w})=E_{3}(\mathbf{w})+\beta E_{2}(\mathbf{w})
+\end{equation}
+
+\begin{equation}
+E(\mathbf{w})
+=
+\left\|
+\mathbf{f}
+\left(
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}
+\mathbf{w}
+-
+\begin{bmatrix}
+\mathbf{r}\\
+\mathbf{0}
+\end{bmatrix}
+\right)
+\right\|_{\mathbf{D}}^{2}
++\beta 
+\left[
+\frac{1}{2(N-1)}
+\sum\limits_{n=0}^{N-2}
+\left\{
+\mathcal{K}_{(n)}^{2}(n)
++
+\mathcal{K}_{(n)}^{2}(n+1)
+\right\}
+\right].
+\end{equation}
+
+where 
+\begin{itemize}
+\item the constant matrix $\mathbf{P} \in \mathbb{R}^{3N\times 12(N-1)}$ is defined in Eq. (\ref{eq:Pmat}),
+\item the constant matrix $\mathbf{Q} \in \mathbb{R}^{9(N-2)\times 12(N-1)}$ is defined in Eq. (\ref{eq:Qmat}),
+\item the diagonal matrix $\mathbf{D} \in \mathbb{R}^{(12N-18)\times (12N-18)}$ contains hyperparameters that assign weights to boundary and continuity conditions,
+\item the vectorial function $\mathbf{f}: \mathbb{R}^{12N-18} \to \mathbb{R}^{12N-18}$  is defined in Eq. (\ref{eq:vecfuncfv}),
+\item the constant vector $\mathbf{r} \in \mathbb{R}^{3N}$ is an input position data described in Eq. (\ref{eq:rvec}),
+\item the vector $\mathbf{w} \in \mathbb{R}^{12(N-1)}$ has the parameters of spline as described in Eq. (\ref{eq:wvector}),
+\item the scalar $\beta$ serves as a hyperparameter to balance the significance of $E_{2}(\mathbf{w})$ relative to $E_{1}(\mathbf{w})$,
+\item the scalar $\mathcal{K}_{(n)}^{2}(n)$ is determined using Eq. (\ref{eq:curvature:K2nn}) and 
+\item the scalar $\mathcal{K}_{(n)}^{2}(n+1)$ is determined using Eq. (\ref{eq:curvature:K2nn1}).
+\end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Parameter calculus of 3D parametric cubic spline}
 \label{sec:solvecubicspline}
-Using the gradient descent technique, we obtain
+
+\subsubsection{Parameter calculus of 3D parametric cubic spline from total cost function}
+Using the gradient descent technique over the total cost function $E(\mathbf{w})$ seen in Eq. (\ref{eq:BasicCost}) of Section \ref{sec:TotalCostFunc}, we obtain
 
 \begin{equation}
 \mathbf{w}_{i+1}
@@ -887,13 +1151,11 @@ Using the gradient descent technique, we obtain
 \left.
 \frac{\partial 
 \left\{
-E_{1}(\mathbf{w})+\beta E_{2}(\mathbf{w})
+E(\mathbf{w})
 \right\}
 }{\partial \mathbf{w}}
 \right|_{\mathbf{w}=\mathbf{w}_{i}}.
 \end{equation}
-
-Applying the Eqs. \ref{eq:DE1}, \ref{eq:DE2} we obtain
 
 \begin{equation}
 \mathbf{w}_{i+1}
@@ -912,6 +1174,9 @@ Applying the Eqs. \ref{eq:DE1}, \ref{eq:DE2} we obtain
 \right|_{\mathbf{w}=\mathbf{w}_{i}}
 \right\}
 \end{equation}
+
+
+Applying the Eqs. \ref{eq:DE1}, \ref{eq:DE2} we obtain
 
 \begin{equation}
 \mathbf{w}_{i+1}
@@ -983,4 +1248,125 @@ be calculated following a 3D parametric linear spline,
 see Section \ref{sec:solvelinearspline}.
 The iteration follows until a maximum number of iterations $i$ or until it reaches a
 minimum defined error $E_1(\mathbf{w}_{i})$. 
+
+\subsubsection{Parameter calculus of 3D parametric cubic spline from total cost function with cube clearance}
+Using the gradient descent technique over the total cost function $E(\mathbf{w})$ seen in Eq. (\ref{eq:BasicCostCube}) of Section \ref{sec:TotalCostFuncCube}, we obtain
+
+\begin{equation}
+\mathbf{w}_{i+1}
+\leftarrow 
+\mathbf{w}_{i}
+-
+\alpha
+\left.
+\frac{\partial 
+\left\{
+E(\mathbf{w})
+\right\}
+}{\partial \mathbf{w}}
+\right|_{\mathbf{w}=\mathbf{w}_{i}}.
+\end{equation}
+
+\begin{equation}
+\mathbf{w}_{i+1}
+\leftarrow 
+\mathbf{w}_{i}
+-
+\alpha
+\left\{
+\left.
+\frac{\partial E_{3}(\mathbf{w})}{\partial \mathbf{w}}
+\right|_{\mathbf{w}=\mathbf{w}_{i}}
++
+\beta
+\left.
+\frac{\partial E_{2}(\mathbf{w})}{\partial \mathbf{w}}
+\right|_{\mathbf{w}=\mathbf{w}_{i}}
+\right\}
+\end{equation}
+
+
+Applying the Eqs. \ref{eq:DE1.3}, \ref{eq:DE2} we obtain
+
+\begin{equation}
+\mathbf{w}_{i+1}
+\leftarrow 
+\mathbf{w}_{i}
+-
+\alpha
+\left\{
+2
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}^{T}
+\mathbf{J}
+\left(
+\mathbf{v}_{i}
+\right)^{T}
+\mathbf{D}
+\mathbf{f}
+\left(
+\mathbf{v}_{i}
+\right)
++
+\frac{\beta}{2(N-1)}
+\begin{bmatrix}
+%
+\frac{
+\partial 
+\mathcal{K}_{(0)}^{2}(0)
+}{\partial \mathbf{w}^{(0)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(0)}^{2}(1)
+}{\partial \mathbf{w}^{(0)}}\\[4pt]
+%
+\frac{
+\partial 
+\mathcal{K}_{(1)}^{2}(1)
+}{\partial \mathbf{w}^{(1)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(1)}^{2}(2)
+}{\partial \mathbf{w}^{(1)}}\\[4pt]
+%
+\vdots\\[4pt]
+\frac{
+\partial 
+\mathcal{K}_{(N-2)}^{2}(N-2)
+}{\partial \mathbf{w}^{(N-2)}}
++
+\frac{
+\partial 
+\mathcal{K}_{(N-2)}^{2}(N-1)
+}{\partial \mathbf{w}^{(N-2)}}\\
+%
+\end{bmatrix}
+\right\}
+\end{equation}
+
+\begin{equation}
+\mathbf{v}_{i}
+\equiv
+\begin{bmatrix}
+\mathbf{P}\\
+\mathbf{Q}
+\end{bmatrix}
+\mathbf{w}_{i}
+-
+\begin{bmatrix}
+\mathbf{r}\\
+\mathbf{0}
+\end{bmatrix}
+\end{equation}
+
+where $\alpha$ and $\beta$ are learning hyper-parameters and 
+$\mathbf{w}_{0}$ can be a random vector or can
+be calculated following a 3D parametric linear spline,
+see Section \ref{sec:solvelinearspline}.
+The iteration follows until a maximum number of iterations $i$ or until it reaches a
+minimum defined error $E_3(\mathbf{w}_{i})$. 
 

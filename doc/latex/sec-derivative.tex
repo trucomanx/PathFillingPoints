@@ -168,7 +168,7 @@ If we define $\mathbf{A}$, $\mathbf{Q}$, $\mathbf{c}$, and $\mathbf{f}$ not to d
 \frac{\partial \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)}{\partial t} 
 \end{align}
 
-Applying the Eq. \ref{eq:DfAwc}
+Applying the Eq. \ref{eq:DfAwc} with $\mathbf{v}=\mathbf{A}\mathbf{w}-\mathbf{c}$
 
 \begin{align}
 \label{eq:dEdt}
@@ -177,12 +177,20 @@ Applying the Eq. \ref{eq:DfAwc}
 2
 \mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}
 \nabla \mathbf{f}(\mathbf{v})
+\mathbf{A}\frac{\partial \mathbf{w}}{\partial t}\\
+&=
+2
+\mathbf{f}^{T}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\mathbf{Q}
+\mathbf{J}(\mathbf{v})
 \mathbf{A}\frac{\partial \mathbf{w}}{\partial t}
 \end{align}
+
+Where $\mathbf{J}(\mathbf{v}) \equiv \nabla \mathbf{f}(\mathbf{v})$ is the Jacobian matrix of the function $\mathbf{f}(\mathbf{v})$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Derivative of $\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$
 with respect to the vector $\mathbf{w}$}
+\label{subsec:funcAwcQ2w}
 
 Given the expression $E=\left\|\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\right\|_{\mathbf{Q}}^2$,
 where
@@ -249,17 +257,25 @@ Using the Eq. \ref{eq:dEdt}
 \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)
 \end{align}
 
-\begin{equation}
+\begin{align}
 \frac{\partial E}{\partial \mathbf{w}}
-=
+&=
 2
 \mathbf{A}^{T}
 \left\{
 \nabla \mathbf{f}(\mathbf{v})
 \right\}^{T}
 \mathbf{Q}
+\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)\\
+&=
+2
+\mathbf{A}^{T}
+\mathbf{J}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)^{T}
+\mathbf{Q}
 \mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)
-\end{equation}
+\end{align}
+
+Where $\mathbf{J}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)=\nabla \mathbf{f}(\mathbf{v})$ is the Jacobian matrix of the vectorial function $\mathbf{f}\left(\mathbf{A}\mathbf{w}-\mathbf{c}\right)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Derivative for a specific type of vector function $\mathbf{f}(\mathbf{v})$ with respect to the vector $\mathbf{v}$}
@@ -297,7 +313,7 @@ Then, we can calculate the Jacobian matrix of function $\mathbf{f}(\mathbf{v})$ 
 \end{equation}
 
 \begin{equation}
-\nabla \mathbf{f}^{T}(\mathbf{v}) 
+\left\{\nabla \mathbf{f}(\mathbf{v}) \right\}^{T}
 \equiv
 \nabla \mathbf{f}(\mathbf{v}) 
 \equiv
