@@ -42,3 +42,4 @@
 /src/PathFillingPoints/__pycache__
 /tests/__pycache__
 /src/PathFillingPoints/Splines/Linear3DSolver/__pycache__
+/src/PathFillingPoints.egg-info/

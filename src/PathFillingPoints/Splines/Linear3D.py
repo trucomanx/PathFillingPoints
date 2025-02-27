@@ -30,5 +30,14 @@ class LinearSpline3D():
         
     def get_w(self):
         return self.w;
+        
+    def get_w_cubic_format(self):
+        w3=[]
+        for i in range(0, len(self.w), 2):
+            w3.append(self.w[i])     # coeficiente do termo x^0
+            w3.append(self.w[i+1])   # coeficiente do termo x^1
+            w3.append(0)         # coeficiente do termo x^2
+            w3.append(0)         # coeficiente do termo x^3
+        return np.array(w3);
 
     
